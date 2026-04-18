@@ -347,24 +347,6 @@
     .tx-feed__feeder { font-size: 11px; color: var(--feather); }
     .tx-feed__time { font-family: var(--font-mono); font-size: 10px; color: var(--mist); opacity: 0.6; }
 
-    /* ═══ ECOSYSTEM SECTION ═══ */
-    .ecosystem-section {
-      padding: 80px 24px;
-      background: var(--night);
-      text-align: center;
-    }
-    .ecosystem-section h2 {
-      font-family: var(--font-display);
-      font-size: 32px; color: var(--linen);
-      font-weight: 900; line-height: 1.15;
-      margin-bottom: 20px;
-    }
-    .ecosystem-section p {
-      font-size: 15px; color: var(--sand);
-      line-height: 1.75; max-width: 520;
-      margin: 0 auto 32px;
-    }
-
     /* ═══ CTA ═══ */
     .cta-section {
       padding: 80px 24px 100px;
@@ -407,6 +389,126 @@
       font-family: var(--font-mono);
       font-size: 10px; color: var(--mist);
       letter-spacing: 1.5px;
+    }
+
+    /* ═══ FUND MODAL ═══ */
+    .modal-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(15,17,13,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      justify-content: center; align-items: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal {
+      background: var(--soil);
+      border: 1px solid rgba(92,184,50,0.15);
+      border-radius: 20px;
+      max-width: 420px; width: 100%;
+      padding: 36px 32px;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 60px rgba(92,184,50,0.06);
+      animation: fadeUp 0.3s ease-out;
+    }
+    .modal__close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none;
+      color: var(--mist); font-size: 20px;
+      cursor: pointer; width: 32px; height: 32px;
+      border-radius: 8px; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .modal__close:hover { color: var(--linen); background: rgba(255,255,255,0.05); }
+    .modal__header {
+      text-align: center; margin-bottom: 24px;
+    }
+    .modal__title {
+      font-family: var(--font-display);
+      font-size: 24px; font-weight: 900;
+      color: var(--linen); margin-bottom: 6px;
+    }
+    .modal__sub {
+      font-family: var(--font-body);
+      font-size: 13px; color: var(--mist);
+      line-height: 1.5;
+    }
+    .modal__qr-wrap {
+      display: flex; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .modal__qr {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex; align-items: center;
+      justify-content: center;
+    }
+    .modal__addr-wrap {
+      background: var(--bark);
+      border: 1px solid rgba(92,184,50,0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex; align-items: center;
+      gap: 10px; margin-bottom: 24px;
+    }
+    .modal__addr {
+      font-family: var(--font-mono);
+      font-size: 11px; color: var(--linen);
+      word-break: break-all; flex: 1;
+      line-height: 1.4;
+    }
+    .modal__copy {
+      font-family: var(--font-mono);
+      font-size: 9px; text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--grove); background: rgba(92,184,50,0.1);
+      border: 1px solid rgba(92,184,50,0.2);
+      padding: 6px 12px; border-radius: 6px;
+      cursor: pointer; white-space: nowrap;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .modal__copy:hover { background: rgba(92,184,50,0.18); }
+    .modal__growing {
+      background: var(--bark);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .modal__growing-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .modal__growing-title {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700;
+      color: var(--grove);
+    }
+    .modal__growing-emoji { font-size: 22px; }
+    .modal__progress-track {
+      height: 6px; border-radius: 3px;
+      background: var(--night);
+      overflow: hidden; margin-bottom: 8px;
+    }
+    .modal__progress-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--grove), var(--lime));
+      transition: width 0.5s ease;
+    }
+    .modal__progress-labels {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 9px; color: var(--mist);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .modal__note {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10px; color: var(--mist);
+      letter-spacing: 0.5px;
     }
 
     /* ═══ RESPONSIVE ═══ */
@@ -474,7 +576,6 @@
     <div class="nav__links">
       <a href="#how" class="nav__link">How It Works</a>
       <a href="#dashboard" class="nav__link">Dashboard</a>
-      <a href="#ecosystem" class="nav__link">Ecosystem</a>
       <a href="#build" class="nav__link">Build Your Own</a>
     </div>
   </nav>
@@ -536,25 +637,25 @@
       </p>
 
       <div class="hero__ctas fade-up d4">
-        <button class="btn btn--primary">Fund the Grove →</button>
-        <button class="btn btn--ghost">Watch the Livestream</button>
+        <button class="btn btn--primary" onclick="document.getElementById('fundModal').classList.add('active')">Fund the Grove →</button>
+        <a href="https://www.youtube.com/@NanoGrove" target="_blank" rel="noopener" class="btn btn--ghost">Watch the Livestream</a>
       </div>
 
       <div class="stats fade-up d5">
         <div class="stat">
-          <div class="stat__val">4.21 Ӿ</div>
+          <div class="stat__val" id="hero-donated">--</div>
           <div class="stat__label">Total donated</div>
         </div>
         <div class="stat">
-          <div class="stat__val">127</div>
+          <div class="stat__val" id="hero-txcount">--</div>
           <div class="stat__label">Transactions</div>
         </div>
         <div class="stat">
-          <div class="stat__val">48.6L</div>
+          <div class="stat__val" id="hero-water">--</div>
           <div class="stat__label">Water delivered</div>
         </div>
         <div class="stat">
-          <div class="stat__val">1.4kg</div>
+          <div class="stat__val" id="hero-seed">--</div>
           <div class="stat__label">Seed dispensed</div>
         </div>
       </div>
@@ -574,7 +675,7 @@
           <div class="step__icon">Ӿ</div>
           <span class="label label--nano" style="margin-bottom:8px; display:block;">Step 01</span>
           <h3>Send Nano</h3>
-          <p>Any amount. Confirmed in under one second. Zero fees — 100% reaches the grove.</p>
+          <p>0.1 Ӿ minimum. Confirmed in under one second. Zero fees — 100% reaches the grove.</p>
           <span class="step__tech">Natrium API · Nano Node RPC</span>
         </div>
 
@@ -628,23 +729,23 @@
             <div class="dash-metrics">
               <div class="metric metric--garden">
                 <div class="metric__label">Soil Moisture</div>
-                <div class="metric__value" style="color: var(--grove);">64%</div>
+                <div class="metric__value" style="color: var(--grove);" id="dash-soil">--%</div>
                 <div class="metric__sub">Bed #1 · Capacitive</div>
               </div>
               <div class="metric metric--garden">
                 <div class="metric__label">Last Watered</div>
-                <div class="metric__value" style="color: var(--grove);">2m ago</div>
-                <div class="metric__sub">0.8L delivered</div>
+                <div class="metric__value" style="color: var(--grove);" id="dash-lastwater">--</div>
+                <div class="metric__sub" id="dash-lastwater-vol">--</div>
               </div>
               <div class="metric metric--garden">
                 <div class="metric__label">Flow Rate</div>
-                <div class="metric__value" style="color: var(--lime);">2.1 L/m</div>
+                <div class="metric__value" style="color: var(--lime);" id="dash-flow">--</div>
                 <div class="metric__sub">YF-S201</div>
               </div>
               <div class="metric metric--garden">
                 <div class="metric__label">Valve</div>
-                <div class="metric__value" style="color: var(--mist);">Closed</div>
-                <div class="metric__sub">Idle · Moisture OK</div>
+                <div class="metric__value" id="dash-valve" style="color: var(--mist);">--</div>
+                <div class="metric__sub" id="dash-valve-sub">--</div>
               </div>
             </div>
           </div>
@@ -658,23 +759,23 @@
             <div class="dash-metrics">
               <div class="metric metric--feeder">
                 <div class="metric__label">Tray Level</div>
-                <div class="metric__value" style="color: var(--feather);">78%</div>
-                <div class="metric__sub">Last filled 2m ago</div>
+                <div class="metric__value" style="color: var(--feather);" id="dash-tray">--%</div>
+                <div class="metric__sub" id="dash-tray-sub">--</div>
               </div>
               <div class="metric metric--feeder">
                 <div class="metric__label">Last Dispensed</div>
-                <div class="metric__value" style="color: var(--feather);">12g</div>
+                <div class="metric__value" style="color: var(--feather);" id="dash-dispensed">--</div>
                 <div class="metric__sub">SG90 · 90° sweep</div>
               </div>
               <div class="metric metric--feeder">
                 <div class="metric__label">Servo Status</div>
-                <div class="metric__value" style="color: var(--mist);">Idle</div>
+                <div class="metric__value" id="dash-servo" style="color: var(--mist);">--</div>
                 <div class="metric__sub">PWM standby</div>
               </div>
               <div class="metric metric--feeder">
                 <div class="metric__label">Today's Seed</div>
-                <div class="metric__value" style="color: var(--clay);">84g</div>
-                <div class="metric__sub">7 dispense cycles</div>
+                <div class="metric__value" style="color: var(--clay);" id="dash-todayseed">--</div>
+                <div class="metric__sub" id="dash-todayseed-sub">--</div>
               </div>
             </div>
           </div>
@@ -684,95 +785,40 @@
         <div class="dash-financials">
           <div>
             <div class="metric__label">Total Donated</div>
-            <div class="metric__value" style="color: var(--nano);">4.21 Ӿ</div>
+            <div class="metric__value" style="color: var(--nano);" id="dash-donated">-- Ӿ</div>
           </div>
           <div>
             <div class="metric__label">Transactions</div>
-            <div class="metric__value" style="color: var(--nano);">127</div>
+            <div class="metric__value" style="color: var(--nano);" id="dash-txcount">--</div>
           </div>
           <div>
             <div class="metric__label">Weather</div>
-            <div class="metric__value" style="color: var(--clay);">72°F · Clear</div>
+            <div class="metric__value" style="color: var(--clay);" id="dash-weather">--</div>
           </div>
         </div>
 
         <!-- Transaction feed -->
         <div class="label label--mist" style="margin-bottom: 12px;">Recent Transactions</div>
-
-        <div class="tx-feed__row tx-feed__row--active">
-          <span class="pulse-dot"></span>
-          <span class="tx-feed__addr">nano_3xr7...qk91</span>
-          <span class="tx-feed__amount">+0.005 Ӿ</span>
-          <span class="tx-feed__garden">🌱 Watered #1 (0.8L)</span>
-          <span class="tx-feed__feeder">🐦 Dispensed 12g</span>
-          <span class="tx-feed__time">2m</span>
-        </div>
-        <div class="tx-feed__row">
-          <span class="pulse-dot" style="background: var(--mist); animation: none; opacity: 0.3;"></span>
-          <span class="tx-feed__addr">nano_1fb2...m4a3</span>
-          <span class="tx-feed__amount">+0.010 Ӿ</span>
-          <span class="tx-feed__garden">🌱 Watered #2 (2.4L)</span>
-          <span class="tx-feed__feeder">🐦 Dispensed 12g</span>
-          <span class="tx-feed__time">18m</span>
-        </div>
-        <div class="tx-feed__row">
-          <span class="pulse-dot" style="background: var(--mist); animation: none; opacity: 0.3;"></span>
-          <span class="tx-feed__addr">nano_7yz8...p2e5</span>
-          <span class="tx-feed__amount">+0.001 Ӿ</span>
-          <span class="tx-feed__garden">🌱 Queued (moisture OK)</span>
-          <span class="tx-feed__feeder">🐦 Dispensed 12g</span>
-          <span class="tx-feed__time">1h</span>
+        <div id="txFeedContainer">
+          <div class="tx-feed__row" style="justify-content: center;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--mist);">Loading...</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ ECOSYSTEM ═══ -->
-  <section class="ecosystem-section" id="ecosystem">
-    <div class="container">
-      <span class="label">One Grove. One Loop.</span>
-      <h2>The bird feeder sits right beside<br>the garden bed. By design.</h2>
-      <p>
-        Birds attracted by the feeder pollinate the garden. Fallen seed composts into the beds. The garden grows food; the feeder brings life. One Nano donation triggers both — and you can watch every transaction, every sensor reading, every servo pulse, live.
-      </p>
-
-      <!-- Ecosystem diagram -->
-      <svg width="100%" viewBox="0 0 320 220" style="max-width: 500px; margin: 0 auto; display: block;">
-        <text x="160" y="20" text-anchor="middle" fill="#209ce5" font-family="'IBM Plex Mono', monospace" font-size="8" letter-spacing="2">NANO DONATION</text>
-        <line x1="160" y1="26" x2="160" y2="50" stroke="#209ce5" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.5"/>
-        <circle cx="160" cy="55" r="12" fill="rgba(32,156,229,0.1)" stroke="#209ce5" stroke-width="1"/>
-        <text x="160" y="58" text-anchor="middle" fill="#209ce5" font-family="'IBM Plex Mono', monospace" font-size="7">Ӿ</text>
-        <line x1="148" y1="60" x2="80" y2="95" stroke="#5cb832" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.4"/>
-        <rect x="30" y="95" width="100" height="52" rx="10" fill="rgba(92,184,50,0.06)" stroke="#5cb832" stroke-width="1" opacity="0.3"/>
-        <text x="80" y="112" text-anchor="middle" fill="#5cb832" font-family="'Fraunces', serif" font-size="12" font-weight="700">Garden Bed</text>
-        <text x="80" y="126" text-anchor="middle" fill="#8a9178" font-family="'IBM Plex Mono', monospace" font-size="7">Valve → Water → Soil Sensor</text>
-        <text x="80" y="138" text-anchor="middle" fill="#8a9178" font-family="'IBM Plex Mono', monospace" font-size="7">RPi 4 · ADS1115 · YF-S201</text>
-        <line x1="172" y1="60" x2="240" y2="95" stroke="#e8a838" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.4"/>
-        <rect x="190" y="95" width="100" height="52" rx="10" fill="rgba(232,168,56,0.06)" stroke="#e8a838" stroke-width="1" opacity="0.3"/>
-        <text x="240" y="112" text-anchor="middle" fill="#e8a838" font-family="'Fraunces', serif" font-size="12" font-weight="700">Bird Feeder</text>
-        <text x="240" y="126" text-anchor="middle" fill="#8a9178" font-family="'IBM Plex Mono', monospace" font-size="7">Servo → Dispense → Camera</text>
-        <text x="240" y="138" text-anchor="middle" fill="#8a9178" font-family="'IBM Plex Mono', monospace" font-size="7">SG90 · GPIO 12 · Arducam</text>
-        <path d="M130 130 Q160 185, 190 130" stroke="#c8a47a" stroke-width="1" fill="none" stroke-dasharray="3 3" opacity="0.3"/>
-        <text x="160" y="178" text-anchor="middle" fill="#c8a47a" font-family="'IBM Plex Mono', monospace" font-size="7" letter-spacing="1">BIRDS POLLINATE · COMPOST FEEDS SOIL</text>
-        <rect x="105" y="192" width="110" height="22" rx="6" fill="#2a2d22" stroke="#3a5a2a" stroke-width="0.8" opacity="0.6"/>
-        <text x="160" y="206" text-anchor="middle" fill="#eae6db" font-family="'IBM Plex Mono', monospace" font-size="7" letter-spacing="1">PUBLIC DASHBOARD</text>
-        <line x1="80" y1="147" x2="140" y2="192" stroke="#8a9178" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.3"/>
-        <line x1="240" y1="147" x2="180" y2="192" stroke="#8a9178" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.3"/>
-      </svg>
     </div>
   </section>
 
   <!-- ═══ CTA ═══ -->
   <section class="cta-section" id="build">
     <div class="container">
-      <h2>Fork it. Fund it.<br>Plant beside it.</h2>
+      <h2>Fork it. Fund it.<br>Develop your own.</h2>
       <p>
         Full hardware BOM, wiring diagrams, servo specs, control software, and dashboard code. Everything you need to build your own NanoGrove — garden beds, bird feeders, or both.
       </p>
       <div class="cta-section__buttons">
-        <button class="btn--mono">GitHub Repository →</button>
-        <button class="btn--mono">Build Guide</button>
-        <button class="btn--mono">Hardware BOM</button>
+        <a href="https://github.com/NanoGrove/nanogrove-site" target="_blank" rel="noopener" class="btn--mono">GitHub Repository →</a>
+        <a href="https://github.com/NanoGrove/nanogrove-site#build-guide" target="_blank" rel="noopener" class="btn--mono">Build Guide</a>
+        <a href="https://github.com/NanoGrove/nanogrove-site#hardware-bom" target="_blank" rel="noopener" class="btn--mono">Hardware BOM</a>
       </div>
     </div>
   </section>
@@ -796,8 +842,81 @@
     </div>
   </footer>
 
-  <!-- Smooth scroll for nav links -->
+  <!-- ═══ FUND MODAL ═══ -->
+  <div class="modal-backdrop" id="fundModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="modal">
+      <button class="modal__close" onclick="document.getElementById('fundModal').classList.remove('active')" aria-label="Close">✕</button>
+
+      <div class="modal__header">
+        <div class="modal__title">Fund the Grove</div>
+        <div class="modal__sub">Zero fees. Confirmed in under one second.<br>100% of your Nano reaches the grove.</div>
+      </div>
+
+      <!-- QR Code placeholder -->
+      <div class="modal__qr-wrap">
+        <div class="modal__qr">
+          <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+            <!-- Placeholder QR pattern -->
+            <rect width="160" height="160" fill="#f5f3ee" rx="4"/>
+            <!-- Position markers -->
+            <rect x="12" y="12" width="36" height="36" rx="4" fill="#1b1e16"/>
+            <rect x="16" y="16" width="28" height="28" rx="2" fill="#f5f3ee"/>
+            <rect x="22" y="22" width="16" height="16" rx="2" fill="#1b1e16"/>
+            <rect x="112" y="12" width="36" height="36" rx="4" fill="#1b1e16"/>
+            <rect x="116" y="16" width="28" height="28" rx="2" fill="#f5f3ee"/>
+            <rect x="122" y="22" width="16" height="16" rx="2" fill="#1b1e16"/>
+            <rect x="12" y="112" width="36" height="36" rx="4" fill="#1b1e16"/>
+            <rect x="16" y="116" width="28" height="28" rx="2" fill="#f5f3ee"/>
+            <rect x="22" y="122" width="16" height="16" rx="2" fill="#1b1e16"/>
+            <!-- Data modules (decorative placeholder pattern) -->
+            <rect x="56" y="12" width="8" height="8" fill="#1b1e16"/><rect x="72" y="12" width="8" height="8" fill="#1b1e16"/><rect x="88" y="12" width="8" height="8" fill="#1b1e16"/>
+            <rect x="56" y="24" width="8" height="8" fill="#1b1e16"/><rect x="80" y="24" width="8" height="8" fill="#1b1e16"/><rect x="96" y="24" width="8" height="8" fill="#1b1e16"/>
+            <rect x="64" y="36" width="8" height="8" fill="#1b1e16"/><rect x="80" y="36" width="8" height="8" fill="#1b1e16"/>
+            <rect x="12" y="56" width="8" height="8" fill="#1b1e16"/><rect x="28" y="56" width="8" height="8" fill="#1b1e16"/><rect x="56" y="56" width="8" height="8" fill="#1b1e16"/><rect x="72" y="56" width="8" height="8" fill="#1b1e16"/><rect x="96" y="56" width="8" height="8" fill="#1b1e16"/><rect x="120" y="56" width="8" height="8" fill="#1b1e16"/><rect x="140" y="56" width="8" height="8" fill="#1b1e16"/>
+            <rect x="12" y="72" width="8" height="8" fill="#1b1e16"/><rect x="40" y="72" width="8" height="8" fill="#1b1e16"/><rect x="64" y="72" width="8" height="8" fill="#1b1e16"/><rect x="88" y="72" width="8" height="8" fill="#1b1e16"/><rect x="112" y="72" width="8" height="8" fill="#1b1e16"/><rect x="132" y="72" width="8" height="8" fill="#1b1e16"/>
+            <rect x="24" y="88" width="8" height="8" fill="#1b1e16"/><rect x="48" y="88" width="8" height="8" fill="#1b1e16"/><rect x="72" y="88" width="8" height="8" fill="#1b1e16"/><rect x="96" y="88" width="8" height="8" fill="#1b1e16"/><rect x="120" y="88" width="8" height="8" fill="#1b1e16"/><rect x="140" y="88" width="8" height="8" fill="#1b1e16"/>
+            <rect x="56" y="104" width="8" height="8" fill="#1b1e16"/><rect x="80" y="104" width="8" height="8" fill="#1b1e16"/><rect x="96" y="104" width="8" height="8" fill="#1b1e16"/><rect x="112" y="104" width="8" height="8" fill="#1b1e16"/><rect x="140" y="104" width="8" height="8" fill="#1b1e16"/>
+            <rect x="56" y="120" width="8" height="8" fill="#1b1e16"/><rect x="72" y="120" width="8" height="8" fill="#1b1e16"/><rect x="96" y="120" width="8" height="8" fill="#1b1e16"/><rect x="128" y="120" width="8" height="8" fill="#1b1e16"/>
+            <rect x="56" y="136" width="8" height="8" fill="#1b1e16"/><rect x="80" y="136" width="8" height="8" fill="#1b1e16"/><rect x="104" y="136" width="8" height="8" fill="#1b1e16"/><rect x="120" y="136" width="8" height="8" fill="#1b1e16"/><rect x="140" y="136" width="8" height="8" fill="#1b1e16"/>
+            <!-- Nano logo hint in center -->
+            <circle cx="80" cy="80" r="12" fill="#f5f3ee" stroke="#209ce5" stroke-width="2"/>
+            <text x="80" y="85" text-anchor="middle" fill="#209ce5" font-family="'IBM Plex Mono', monospace" font-size="12" font-weight="600">Ӿ</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Nano address -->
+      <div class="modal__addr-wrap">
+        <div class="modal__addr" id="nanoAddr">nano_1abc2def3ghi4jkl5mno6pqr7stu8vwx9yz0placeholder</div>
+        <button class="modal__copy" onclick="copyAddr()" id="copyBtn">Copy</button>
+      </div>
+
+      <!-- Currently growing -->
+      <div class="modal__growing">
+        <div class="modal__growing-header">
+          <div>
+            <div class="modal__growing-title" id="modal-plant">🥦 Broccoli</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 10px; color: var(--mist); text-transform: uppercase; letter-spacing: 1.5px;">Currently Growing</div>
+        </div>
+        <div class="modal__progress-track">
+          <div class="modal__progress-fill" id="modal-progress" style="width: 61%;"></div>
+        </div>
+        <div class="modal__progress-labels">
+          <span id="modal-sown">Sown · 55 days ago</span>
+          <span id="modal-harvest">~35 days to harvest</span>
+        </div>
+      </div>
+
+      <div class="modal__note">
+        Scan the QR or copy the address. 0.1 Ӿ minimum.
+      </div>
+    </div>
+  </div>
+
+  <!-- Smooth scroll + modal helpers + live data -->
   <script>
+    // ── Nav smooth scroll ──
     document.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -805,6 +924,104 @@
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
+
+    // ── Modal ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.getElementById('fundModal').classList.remove('active');
+    });
+
+    function copyAddr() {
+      const addr = document.getElementById('nanoAddr').textContent;
+      navigator.clipboard.writeText(addr).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+
+    // ── Live data fetch ──
+    // UPDATE THIS URL once your nanogrove-data repo is set up with GitHub Pages
+    const DATA_URL = 'https://nanogrove.github.io/nanogrove-data/stats.json';
+
+    function setText(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
+    function setStyle(id, prop, val) {
+      const el = document.getElementById(id);
+      if (el) el.style[prop] = val;
+    }
+
+    async function fetchStats() {
+      try {
+        const res = await fetch(DATA_URL + '?t=' + Date.now());
+        if (!res.ok) return;
+        const d = await res.json();
+
+        // ── Hero stats ──
+        setText('hero-donated', d.treasury.total_donated.toFixed(2) + ' Ӿ');
+        setText('hero-txcount', d.treasury.tx_count);
+        setText('hero-water', d.garden.total_water_liters.toFixed(1) + 'L');
+        const seedKg = (d.feeder.today_seed_grams || 0);
+        setText('hero-seed', seedKg >= 1000 ? (seedKg / 1000).toFixed(1) + 'kg' : seedKg + 'g');
+
+        // ── Dashboard: Garden ──
+        setText('dash-soil', d.garden.soil_moisture + '%');
+        setText('dash-lastwater', d.garden.last_watered_ago);
+        setText('dash-lastwater-vol', d.garden.last_watered_volume + 'L delivered');
+        setText('dash-flow', d.garden.flow_rate + ' L/m');
+        const valveOpen = d.garden.valve_status === 'open';
+        setText('dash-valve', valveOpen ? 'Open' : 'Closed');
+        setStyle('dash-valve', 'color', valveOpen ? 'var(--grove)' : 'var(--mist)');
+        setText('dash-valve-sub', valveOpen ? 'Watering now...' : 'Idle · Moisture OK');
+
+        // ── Dashboard: Feeder ──
+        setText('dash-tray', d.feeder.tray_level + '%');
+        setText('dash-tray-sub', 'Last filled ' + d.feeder.last_dispensed_ago);
+        setText('dash-dispensed', d.feeder.last_dispensed_grams + 'g');
+        const servoActive = d.feeder.servo_status === 'dispensing';
+        setText('dash-servo', servoActive ? 'Active' : 'Idle');
+        setStyle('dash-servo', 'color', servoActive ? 'var(--feather)' : 'var(--mist)');
+        setText('dash-todayseed', d.feeder.today_seed_grams + 'g');
+        setText('dash-todayseed-sub', d.feeder.today_dispense_cycles + ' dispense cycles');
+
+        // ── Dashboard: Financials ──
+        setText('dash-donated', d.treasury.total_donated.toFixed(2) + ' Ӿ');
+        setText('dash-txcount', d.treasury.tx_count);
+
+        // ── Modal: Growing ──
+        if (d.growing) {
+          setText('modal-plant', d.growing.emoji + ' ' + d.growing.plant);
+          setText('modal-sown', 'Sown · ' + d.growing.days_since_sown + ' days ago');
+          setText('modal-harvest', '~' + d.growing.days_to_harvest + ' days to harvest');
+          setStyle('modal-progress', 'width', d.growing.progress_pct + '%');
+        }
+
+        // ── Transaction feed ──
+        if (d.recent_tx && d.recent_tx.length) {
+          const container = document.getElementById('txFeedContainer');
+          container.innerHTML = d.recent_tx.map((tx, i) => `
+            <div class="tx-feed__row ${tx.active ? 'tx-feed__row--active' : ''}">
+              <span class="pulse-dot" style="${tx.active ? '' : 'background: var(--mist); animation: none; opacity: 0.3;'}"></span>
+              <span class="tx-feed__addr">${tx.addr}</span>
+              <span class="tx-feed__amount">+${tx.amount} Ӿ</span>
+              <span class="tx-feed__garden">🌱 ${tx.garden_action}</span>
+              <span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>
+              <span class="tx-feed__time">${tx.time_ago}</span>
+            </div>
+          `).join('');
+        }
+
+      } catch (e) {
+        // Data not available yet — elements show "--" placeholders
+        console.log('Stats fetch pending:', e.message);
+      }
+    }
+
+    // Fetch on load, then every 60 seconds
+    fetchStats();
+    setInterval(fetchStats, 60000);
   </script>
 
 </body>
