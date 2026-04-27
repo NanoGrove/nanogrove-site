@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NanoGrove — A garden anyone can water</title>
+  <meta name="description" content="A living grove tended by strangers around the globe in real time. Send Nano — the birds eat, the vegetables drink, and everything grown is donated. Zero fees. Instant. Green.">
+  <meta property="og:title" content="NanoGrove — A garden anyone can water">
+  <meta property="og:description" content="Send Nano — the birds eat, the vegetables drink, and everything grown is donated. No fees. No middlemen. Just seed, water, and proof.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nanogrove.org">
+  <meta property="og:image" content="https://nanogrove.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' stroke='%235cb832' stroke-width='2' fill='none' opacity='0.3'/><rect x='32' y='48' width='3.5' height='26' rx='1.75' fill='%235cb832'/><circle cx='33' cy='38' r='9' fill='%235cb832'/><circle cx='50' cy='30' r='5' fill='%23209ce5'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--night:#0f110d;--soil:#1b1e16;--bark:#2a2d22;--moss:#3a5a2a;--grove:#5cb832;--lime:#a3e635;--nano:#209ce5;--nano-glow:#4fc3f7;--clay:#c8a47a;--sand:#ddd5c0;--linen:#eae6db;--white:#f5f3ee;--mist:#8a9178;--feather:#e8a838;--robin:#d45d3c;--font-display:'Fraunces',serif;--font-mono:'IBM Plex Mono',monospace;--font-body:'Plus Jakarta Sans',sans-serif}
+    html{scroll-behavior:smooth}
+    body{background:var(--soil);color:var(--sand);font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.8)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{opacity:0;animation:fadeUp .7s ease-out forwards}
+    .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}
+    .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--grove);display:inline-block;animation:pulse 2s ease-in-out infinite}
+    .label{font-family:var(--font-mono);font-size:10px;color:var(--grove);text-transform:uppercase;letter-spacing:3px}
+    .label--feather{color:var(--feather)}.label--nano{color:var(--nano)}.label--mist{color:var(--mist);letter-spacing:2px}
+    .container{max-width:920px;margin:0 auto;padding:0 24px}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(27,30,22,.88);border-bottom:1px solid rgba(58,90,42,.15);padding:12px 28px;display:flex;align-items:center;gap:14px}
+    .nav__wordmark{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--linen)}
+    .nav__wordmark span{color:var(--grove)}
+    .nav__links{margin-left:auto;display:flex;gap:6px;align-items:center}
+    .nav__link{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mist);padding:7px 14px;border-radius:6px;transition:all .2s;background:none;border:none;cursor:pointer}
+    .nav__link:hover{color:var(--grove);background:rgba(92,184,50,.08)}
+
+    /* HERO */
+    .hero{position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 24px 60px;overflow:hidden}
+    .hero__bg{position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(58,90,42,.07) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(232,168,56,.04) 0%,transparent 45%)}
+    .hero__grid{position:absolute;inset:0;opacity:.025;background-image:linear-gradient(var(--grove) 1px,transparent 1px),linear-gradient(90deg,var(--grove) 1px,transparent 1px);background-size:80px 80px}
+    .hero__content{position:relative;z-index:1;max-width:720px}
+    .hero__h1{font-family:var(--font-display);font-weight:900;font-size:clamp(38px,6.5vw,68px);color:var(--linen);line-height:1.05;margin:16px 0 24px;letter-spacing:-1.5px}
+    .hero__h1 span{color:var(--grove)}
+    .hero__tagline{font-family:var(--font-mono);font-size:12px;color:var(--mist);letter-spacing:2px;text-transform:uppercase}
+
+    .hero__stats{margin-top:40px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+    .hero__stat{text-align:center}
+    .hero__stat-val{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--linen)}
+    .hero__stat-label{font-family:var(--font-mono);font-size:9px;color:var(--mist);text-transform:uppercase;letter-spacing:2px}
+    .grow-bars{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto;width:100%}
+    .grow-bar{background:var(--bark);border-radius:12px;padding:14px 16px}
+    .grow-bar__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .grow-bar__name{font-family:var(--font-display);font-size:15px;font-weight:700}
+    .grow-bar__label{font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px}
+    .grow-bar__track{height:5px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:6px}
+    .grow-bar__fill{height:100%;border-radius:3px}
+    .grow-bar__fill--green{background:linear-gradient(90deg,var(--grove),var(--lime))}
+    .grow-bar__fill--feather{background:linear-gradient(90deg,var(--feather),var(--clay))}
+    .grow-bar__meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1px}
+
+    /* STREAM */
+    .stream-section{padding:80px 24px}
+    .stream-wrap{max-width:920px;margin:0 auto}
+    .stream-header{margin-bottom:16px}
+    .stream-header h2{font-family:var(--font-display);font-size:32px;color:var(--linen);font-weight:900;margin-top:4px}
+    .stream-player{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(92,184,50,.1);box-shadow:0 12px 48px rgba(0,0,0,.3)}
+    .stream-player__iframe-wrap{position:relative;padding-bottom:56.25%;height:0}
+    .stream-player__iframe-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+    .stream-addr-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--night);border-top:1px solid rgba(92,184,50,.08)}
+    .stream-addr-bar__addr{font-family:var(--font-mono);font-size:11px;color:var(--linen);opacity:.7;word-break:break-all;flex:1;line-height:1.3}
+    .feed-btn{font-family:var(--font-body);font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--nano),var(--nano-glow));color:var(--white);border:none;padding:12px 28px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:all .15s;box-shadow:0 2px 16px rgba(32,156,229,.25)}
+    .feed-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(32,156,229,.35)}
+    .feed-btn--copied{background:var(--bark)!important;color:var(--nano)!important;box-shadow:none!important}
+    .stream-addr-bar__min{font-family:var(--font-mono);font-size:9px;color:var(--mist);white-space:nowrap}
+
+    /* STEPS */
+    .steps-section{padding:80px 24px;background:var(--night)}
+    .steps-section h2{font-family:var(--font-display);font-size:clamp(28px,4vw,36px);color:var(--linen);font-weight:900;line-height:1.1;margin-bottom:48px}
+    .steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .step{background:var(--soil);border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;transition:transform .2s}
+    .step:hover{transform:translateY(-3px)}
+    .step__bg-num{position:absolute;top:-10px;right:-5px;font-family:var(--font-display);font-size:72px;font-weight:900;opacity:.06;line-height:1}
+    .step__icon{font-size:24px;margin-bottom:10px}
+    .step h3{font-family:var(--font-display);font-size:22px;color:var(--linen);font-weight:700;margin-bottom:8px}
+    .step p{font-size:13px;color:var(--sand);line-height:1.65;margin-bottom:14px}
+    .step__tech{font-family:var(--font-mono);font-size:10px;color:var(--mist);padding:6px 10px;background:var(--night);border-radius:6px;display:inline-block}
+
+    /* DASHBOARD */
+    .dashboard-section{padding:80px 24px}
+    .dashboard{background:var(--night);border-radius:18px;padding:28px;border:1px solid rgba(58,90,42,.15)}
+    .dash-split{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    .dash-systems{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+    .dash-system__header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+    .dash-system__dot{width:10px;height:10px;border-radius:3px}
+    .dash-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .metric{background:var(--soil);border-radius:10px;padding:14px 12px}
+    .metric--garden{border:1px solid rgba(58,90,42,.1)}
+    .metric--feeder{border:1px solid rgba(232,168,56,.07)}
+    .metric__label{font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .metric__value{font-family:var(--font-display);font-size:24px;font-weight:700}
+    .metric__sub{font-family:var(--font-mono);font-size:9px;color:var(--mist);margin-top:2px}
+    .dash-financials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;padding:16px 0;border-top:1px solid rgba(58,90,42,.1);border-bottom:1px solid rgba(58,90,42,.1);text-align:center}
+    .dash-financials .metric__value{font-size:22px}
+    .tx-feed__row{display:grid;grid-template-columns:auto 1fr auto auto auto auto;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;margin-bottom:2px}
+    .tx-feed__row--active{background:rgba(92,184,50,.03)}
+    .tx-feed__addr{font-family:var(--font-mono);font-size:11px;color:var(--linen)}
+    .tx-feed__amount{font-family:var(--font-mono);font-size:11px;color:var(--nano);font-weight:600}
+    .tx-feed__garden{font-size:11px;color:var(--grove)}
+    .tx-feed__feeder{font-size:11px;color:var(--feather)}
+    .tx-feed__time{font-family:var(--font-mono);font-size:10px;color:var(--mist);opacity:.6}
+
+    /* CTA */
+    .cta-section{padding:80px 24px 100px;text-align:center}
+    .cta-section h2{font-family:var(--font-display);font-size:32px;color:var(--linen);font-weight:900;line-height:1.1;margin-bottom:16px}
+    .cta-section p{font-size:15px;color:var(--sand);line-height:1.7;max-width:560px;margin:0 auto 32px}
+    .cta-section__buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn--mono{font-family:var(--font-mono);font-weight:600;font-size:13px;background:transparent;color:var(--linen);border:1.5px solid rgba(234,230,219,.2);padding:14px 24px;border-radius:10px;letter-spacing:.5px;cursor:pointer;transition:all .2s}
+    .btn--mono:hover{border-color:rgba(234,230,219,.4);background:rgba(255,255,255,.03)}
+
+    /* GROW */
+    .grow-section{padding:80px 24px 80px;background:var(--night)}
+    .grow-section h2{font-family:var(--font-display);font-size:32px;color:var(--linen);font-weight:900;line-height:1.1;margin-bottom:8px}
+    .grow-section p{font-size:15px;color:var(--sand);line-height:1.7;max-width:600px;margin-bottom:32px}
+    .grow-progress{background:var(--soil);border-radius:14px;padding:24px;border:1px solid rgba(92,184,50,.1);margin-bottom:32px}
+    .grow-progress__header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+    .grow-progress__title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--grove)}
+    .grow-progress__amount{font-family:var(--font-mono);font-size:14px;color:var(--linen)}
+    .grow-progress__track{height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:8px}
+    .grow-progress__fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--grove),var(--lime));transition:width .5s}
+    .grow-progress__sub{font-family:var(--font-mono);font-size:10px;color:var(--mist)}
+    .grow-roadmap{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:32px}
+    .grow-bed{background:var(--soil);border-radius:12px;padding:16px 12px;text-align:center;border:1px solid rgba(92,184,50,.06);transition:transform .2s}
+    .grow-bed:hover{transform:translateY(-2px)}
+    .grow-bed--active{border-color:rgba(92,184,50,.3);box-shadow:0 0 20px rgba(92,184,50,.06)}
+    .grow-bed--next{border-color:rgba(92,184,50,.15);border-style:dashed}
+    .grow-bed--future{opacity:.4}
+    .grow-bed__emoji{font-size:28px;margin-bottom:6px}
+    .grow-bed__name{font-family:var(--font-body);font-size:11px;color:var(--linen);font-weight:600;margin-bottom:2px}
+    .grow-bed__label{font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1px}
+    .grow-bed__label--active{color:var(--grove)}
+    .grow-bed__label--next{color:var(--lime)}
+
+    /* FOOTER */
+    .footer{padding:32px 24px 48px;text-align:center;border-top:1px solid rgba(58,90,42,.1)}
+    .footer__lockup{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
+    .footer__wordmark{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--linen)}
+    .footer__wordmark span{color:var(--grove)}
+    .footer__meta{font-family:var(--font-mono);font-size:10px;color:var(--mist);letter-spacing:1.5px}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .nav__links{display:none}
+      .grow-bars{grid-template-columns:1fr}
+      .steps-grid{grid-template-columns:1fr}
+      .dash-split{grid-template-columns:1fr}
+      .dash-systems,.dash-metrics{grid-template-columns:1fr}
+      .stream-addr-bar{flex-wrap:wrap;gap:8px}
+      .stream-addr-bar__addr{display:none}
+      .feed-bar{justify-content:center;gap:20px!important}
+      .feed-min{margin-left:0!important}
+      .tx-feed__row{grid-template-columns:auto 1fr auto;gap:8px}
+      .tx-feed__garden,.tx-feed__feeder,.tx-feed__time{grid-column:2/-1;padding-left:17px}
+      .grow-roadmap{grid-template-columns:repeat(3,1fr)!important}
+    }
+    @media(max-width:480px){
+      .hero{padding:80px 16px 60px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-label="NanoGrove logo"><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="1.5" opacity=".2"/><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="2" stroke-dasharray="4 82" stroke-dashoffset="-20" opacity=".5"/><ellipse cx="50" cy="74" rx="30" ry="6" fill="#3a5a2a" opacity=".6"/><rect x="32" y="48" width="3.5" height="26" rx="1.75" fill="#5cb832" opacity=".85"/><path d="M33.5 58Q26 52 22 46" stroke="#5cb832" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="33" cy="38" r="9" fill="#5cb832"/><circle cx="28" cy="42" r="5" fill="#3a5a2a" opacity=".45"/><rect x="64" y="48" width="3" height="26" rx="1.5" fill="#c8a47a" opacity=".7"/><rect x="57" y="48" width="17" height="3" rx="1.5" fill="#c8a47a" opacity=".8"/><ellipse cx="70" cy="43" rx="6" ry="4.5" fill="#e8a838" opacity=".85"/><circle cx="75" cy="40" r="3.5" fill="#e8a838"/><circle cx="76.5" cy="39.5" r="1" fill="#0f110d"/><path d="M78.5 40L82 40.5L78.5 41.5Z" fill="#d45d3c"/><circle cx="50" cy="30" r="5" fill="#209ce5"/><circle cx="50" cy="30" r="8.5" stroke="#209ce5" stroke-width="1" opacity=".35"/></svg>
+    <div class="nav__wordmark">Nano<span>Grove</span></div>
+    <div class="nav__links">
+      <a href="#livestream" class="nav__link">Livestream</a>
+      <a href="#how" class="nav__link">How It Works</a>
+      <a href="#grow" class="nav__link">Grow the Grove</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grid"></div>
+    <div class="hero__content">
+      <div class="fade-up">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="1.5" opacity=".2"/><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="2" stroke-dasharray="4 82" stroke-dashoffset="-20" opacity=".5"/><ellipse cx="50" cy="74" rx="30" ry="6" fill="#3a5a2a" opacity=".6"/><rect x="32" y="48" width="3.5" height="26" rx="1.75" fill="#5cb832" opacity=".85"/><path d="M33.5 58Q26 52 22 46" stroke="#5cb832" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M33.5 52Q28 46 26 40" stroke="#5cb832" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="20" cy="44" r="7" fill="#5cb832" opacity=".8"/><circle cx="17" cy="48" r="4.5" fill="#3a5a2a" opacity=".55"/><circle cx="24" cy="38" r="5" fill="#5cb832" opacity=".65"/><circle cx="33" cy="38" r="9" fill="#5cb832"/><circle cx="28" cy="42" r="5" fill="#3a5a2a" opacity=".45"/><rect x="64" y="48" width="3" height="26" rx="1.5" fill="#c8a47a" opacity=".7"/><rect x="57" y="48" width="17" height="3" rx="1.5" fill="#c8a47a" opacity=".8"/><circle cx="61" cy="49.5" r="1" fill="#e8a838" opacity=".6"/><circle cx="64" cy="49.5" r=".8" fill="#e8a838" opacity=".5"/><circle cx="69" cy="49.5" r="1" fill="#e8a838" opacity=".7"/><ellipse cx="70" cy="43" rx="6" ry="4.5" fill="#e8a838" opacity=".85"/><circle cx="75" cy="40" r="3.5" fill="#e8a838"/><circle cx="76.5" cy="39.5" r="1" fill="#0f110d"/><path d="M78.5 40L82 40.5L78.5 41.5Z" fill="#d45d3c"/><path d="M67 41Q70 38 73 42" stroke="#c8a47a" stroke-width=".8" fill="none" opacity=".5"/><path d="M64 43L60 40L60 44Z" fill="#e8a838" opacity=".7"/><circle cx="50" cy="30" r="5" fill="#209ce5"/><circle cx="50" cy="30" r="8.5" stroke="#209ce5" stroke-width="1" opacity=".35"/><circle cx="50" cy="30" r="14" stroke="#4fc3f7" stroke-width=".7" opacity=".15"/><path d="M45 31L36 37" stroke="#209ce5" stroke-width="1" opacity=".3" stroke-dasharray="2 2"/><path d="M55 31L63 40" stroke="#209ce5" stroke-width="1" opacity=".3" stroke-dasharray="2 2"/><path d="M87 50C87 26 72 10 50 8" stroke="#c8a47a" stroke-width="1.1" fill="none" opacity=".25" stroke-linecap="round"/><path d="M13 50C13 74 28 90 50 92" stroke="#c8a47a" stroke-width="1.1" fill="none" opacity=".25" stroke-linecap="round"/><polygon points="48,6 53,8.5 50,12" fill="#c8a47a" opacity=".25"/><polygon points="52,94 47,91.5 50,88" fill="#c8a47a" opacity=".25"/></svg>
+      </div>
+      <h1 class="hero__h1 fade-up d1">Crypto in.<br><span>Food out.</span></h1>
+      <p style="font-size:17px;color:var(--sand);line-height:1.75;max-width:540px;margin:0 auto 24px;" class="fade-up d2">
+        NanoGrove is a living grove tended by strangers around the globe in real time. Send Nano — the birds eat, the vegetables drink, and everything grown is donated. No fees. No middlemen. Just seed, water, and proof.
+      </p>
+      <div class="fade-up d3" style="margin-top:32px;">
+        <a href="#livestream" class="nav__link" style="font-family:var(--font-body);font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--grove),var(--lime));color:var(--night);padding:16px 36px;border-radius:12px;letter-spacing:0;text-transform:none;box-shadow:0 4px 24px rgba(92,184,50,.25);display:inline-block;">Watch the Livestream →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps-section" id="how">
+    <div class="container">
+      <span class="label">One Donation, Two Outputs</span>
+      <h2>Send once. Feed the whole grove.</h2>
+      <div class="steps-grid">
+        <div class="step" style="border:1px solid rgba(32,156,229,.1)">
+          <div class="step__bg-num" style="color:var(--nano)">01</div>
+          <div class="step__icon">Ӿ</div>
+          <span class="label label--nano" style="margin-bottom:8px;display:block">Step 01</span>
+          <h3>Send Nano</h3>
+          <p>0.1 Ӿ minimum. Confirmed in under one second. Zero fees — 100% reaches the grove.</p>
+          <span class="step__tech">Natrium API · Nano Node RPC</span>
+        </div>
+        <div class="step" style="border:1px solid rgba(232,168,56,.1)">
+          <div class="step__bg-num" style="color:var(--feather)">02</div>
+          <div class="step__icon">🐦</div>
+          <span class="label label--feather" style="margin-bottom:8px;display:block">Step 02</span>
+          <h3>Seed Drops</h3>
+          <p>The feeder servo turns and dispenses seed into the tray, right beside the garden bed.</p>
+          <span class="step__tech">SG90 Servo · GPIO 12 PWM</span>
+        </div>
+        <div class="step" style="border:1px solid rgba(92,184,50,.1)">
+          <div class="step__bg-num" style="color:var(--grove)">03</div>
+          <div class="step__icon">💧</div>
+          <span class="label" style="margin-bottom:8px;display:block">Step 03</span>
+          <h3>Water Flows</h3>
+          <p>The Pi checks soil moisture and weather. If the bed needs water, the solenoid valve opens.</p>
+          <span class="step__tech">RPi 4 · ADS1115 · Solenoid Valve · Open-Meteo</span>
+        </div>
+        <div class="step" style="border:1px solid rgba(200,164,122,.1)">
+          <div class="step__bg-num" style="color:var(--clay)">04</div>
+          <div class="step__icon">🥦</div>
+          <span class="label label--mist" style="margin-bottom:8px;display:block">Step 04</span>
+          <h3>Harvest & Donate</h3>
+          <p>When the food is ready, it's harvested and delivered to a local hunger-relief non-profit.</p>
+          <span class="step__tech">Proof of Broccoli · Feed More Richmond</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVESTREAM + DASHBOARD -->
+  <section class="stream-section" id="livestream">
+    <div class="stream-wrap">
+      <div class="stream-header">
+        <span class="label"><span class="pulse-dot" style="width:6px;height:6px;margin-right:8px;"></span>Live</span>
+        <h2>Right now, in the grove.</h2>
+      </div>
+      <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(92,184,50,.1);box-shadow:0 12px 48px rgba(0,0,0,.3);">
+        <!-- Video player -->
+        <div class="stream-player__iframe-wrap">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID_PLACEHOLDER?autoplay=1&mute=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <!-- Feed the Grove bar -->
+        <div class="feed-bar" style="background:var(--night);border-top:1px solid rgba(92,184,50,.08);padding:14px 18px;display:flex;align-items:center;gap:14px;">
+          <button class="feed-btn" onclick="feedCopy()" id="feedBtn">Feed the Grove</button>
+          <div class="stream-addr-bar__addr" id="streamAddr" style="flex:1;">nano_1abc2def3ghi4jkl5mno6pqr7stu8vwx9yz0placeholder</div>
+          <span class="feed-min" style="font-family:var(--font-mono);font-size:9px;color:var(--mist);letter-spacing:1px;white-space:nowrap;margin-left:auto;">0.1 Ӿ minimum</span>
+        </div>
+        <!-- Treasury -->
+        <div style="background:var(--night);padding:14px 18px;border-top:1px solid rgba(58,90,42,.06);display:flex;justify-content:center;gap:40px;">
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Total Donated</div>
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--mist);" id="dash-donated">-- Ӿ</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Avg Donation</div>
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--mist);" id="dash-avgdonation">-- Ӿ</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Transactions</div>
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--mist);" id="dash-txcount">--</div>
+          </div>
+        </div>
+        <!-- Dashboard attached -->
+        <div style="background:var(--night);padding:20px 24px 24px;border-top:1px solid rgba(58,90,42,.1);">
+          <div class="dash-split">
+            <!-- Garden: 2/3 -->
+            <div>
+              <div class="dash-system__header"><div class="dash-system__dot" style="background:var(--grove)"></div><span class="label">Garden Bed</span></div>
+              <div class="dash-metrics">
+                <div class="metric metric--garden"><div class="metric__label">Soil Moisture</div><div class="metric__value" style="color:var(--grove)" id="dash-soil">--%</div><div class="metric__sub">Bed #1 · Capacitive</div></div>
+                <div class="metric metric--garden"><div class="metric__label">Last Watered</div><div class="metric__value" style="color:var(--grove)" id="dash-lastwater">--</div><div class="metric__sub" id="dash-lastwater-vol">--</div></div>
+                <div class="metric metric--garden"><div class="metric__label">Valve</div><div class="metric__value" id="dash-valve" style="color:var(--mist)">--</div><div class="metric__sub" id="dash-valve-sub">Idle · 0 L/min</div></div>
+                <div class="metric metric--garden"><div class="metric__label">Weather</div><div class="metric__value" style="color:var(--clay)" id="dash-weather">--</div><div class="metric__sub">Open-Meteo</div></div>
+              </div>
+            </div>
+            <!-- Feeder: 1/3 -->
+            <div>
+              <div class="dash-system__header"><div class="dash-system__dot" style="background:var(--feather)"></div><span class="label label--feather">Bird Feeder</span></div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="metric metric--feeder"><div class="metric__label">Servo Status</div><div class="metric__value" id="dash-servo" style="color:var(--mist)">--</div><div class="metric__sub">PWM standby</div></div>
+                <div class="metric metric--feeder"><div class="metric__label">Last Dispensed</div><div class="metric__value" style="color:var(--feather)" id="dash-dispensed">--</div><div class="metric__sub">SG90 · 90° sweep</div></div>
+              </div>
+            </div>
+          </div>
+          <!-- Growing bars -->
+          <div class="grow-bars" style="max-width:none;margin-top:10px;grid-template-columns:2fr 1fr;">
+            <div class="grow-bar">
+              <div class="grow-bar__header">
+                <span class="grow-bar__name" style="color:var(--grove)" id="grow-plant">🥦 Broccoli</span>
+                <span class="grow-bar__label">Currently Growing</span>
+              </div>
+              <div class="grow-bar__track"><div class="grow-bar__fill grow-bar__fill--green" id="grow-progress" style="width:61%"></div></div>
+              <div class="grow-bar__meta"><span id="grow-sown">Sown · 55 days ago</span><span id="grow-harvest">~35 days to harvest</span></div>
+            </div>
+            <div class="grow-bar">
+              <div class="grow-bar__header">
+                <span class="grow-bar__name" style="color:var(--feather)">🐦 Seed</span>
+                <span class="grow-bar__label">Feeder</span>
+              </div>
+              <div class="grow-bar__track"><div class="grow-bar__fill grow-bar__fill--feather" id="tray-progress" style="width:78%"></div></div>
+              <div class="grow-bar__meta"><span>Tray level</span><span id="tray-pct">~78%</span></div>
+            </div>
+          </div>
+          <!-- Transactions -->
+          <div style="padding-top:16px;border-top:1px solid rgba(58,90,42,.1);margin-top:16px;">
+            <div class="label label--mist" style="margin-bottom:12px">Recent Transactions</div>
+            <div id="txFeedContainer">
+              <div class="tx-feed__row" style="justify-content:center"><span style="font-family:var(--font-mono);font-size:11px;color:var(--mist)">Loading...</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROW THE GROVE -->
+  <section class="grow-section" id="grow">
+    <div class="container">
+      <span class="label">What Grows Next</span>
+      <h2>Grow the Grove</h2>
+      <p>Every donation expands the grove — one bed, one vegetable, one season at a time.</p>
+
+      <!-- Progress bar -->
+      <div class="grow-progress">
+        <div class="grow-progress__header">
+          <div class="grow-progress__title">🥕 Carrots</div>
+          <div class="grow-progress__amount" id="grow-fund-amount">$0 / $133</div>
+        </div>
+        <div class="grow-progress__track">
+          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <div class="grow-progress__sub">Progress toward the next raised bed.</div>
+          <div class="grow-progress__sub" id="nano-rate">1 Ӿ = --</div>
+        </div>
+      </div>
+
+      <!-- Bed roadmap -->
+      <div class="grow-roadmap">
+        <div class="grow-bed grow-bed--active">
+          <div class="grow-bed__emoji">🥦</div>
+          <div class="grow-bed__name">Broccoli</div>
+          <div class="grow-bed__label grow-bed__label--active">Bed 1 · Active</div>
+        </div>
+        <div class="grow-bed grow-bed--next">
+          <div class="grow-bed__emoji">🥕</div>
+          <div class="grow-bed__name">Carrots</div>
+          <div class="grow-bed__label grow-bed__label--next">Bed 2 · Next</div>
+        </div>
+        <div class="grow-bed grow-bed--future">
+          <div class="grow-bed__emoji">🥬</div>
+          <div class="grow-bed__name">Kale</div>
+          <div class="grow-bed__label">Bed 3</div>
+        </div>
+        <div class="grow-bed grow-bed--future">
+          <div class="grow-bed__emoji">🍅</div>
+          <div class="grow-bed__name">Tomatoes</div>
+          <div class="grow-bed__label">Bed 4</div>
+        </div>
+        <div class="grow-bed grow-bed--future">
+          <div class="grow-bed__emoji">🥔</div>
+          <div class="grow-bed__name">Potatoes</div>
+          <div class="grow-bed__label">Bed 5</div>
+        </div>
+        <div class="grow-bed grow-bed--future">
+          <div class="grow-bed__emoji">🫑</div>
+          <div class="grow-bed__name">Peppers</div>
+          <div class="grow-bed__label">Bed 6</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;margin-top:100px;margin-bottom:20px;">
+        <a href="https://github.com/NanoGrove/nanogrove-site" target="_blank" rel="noopener" class="btn--mono" style="display:inline-block;">GitHub Repository →</a>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--mist);margin-top:20px;text-align:center;">The world's most over-engineered watering system. Open source, obviously.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__lockup">
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="1.5" opacity=".2"/><circle cx="33" cy="38" r="9" fill="#5cb832"/><rect x="32" y="48" width="3.5" height="26" rx="1.75" fill="#5cb832" opacity=".85"/><ellipse cx="50" cy="74" rx="30" ry="6" fill="#3a5a2a" opacity=".6"/><ellipse cx="70" cy="43" rx="6" ry="4.5" fill="#e8a838" opacity=".85"/><circle cx="75" cy="40" r="3.5" fill="#e8a838"/><circle cx="50" cy="30" r="5" fill="#209ce5"/></svg>
+      <div class="footer__wordmark">Nano<span>Grove</span></div>
+    </div>
+    <div class="footer__meta">Zero fees · Instant · Green</div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav__link').forEach(link=>{link.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(link.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+
+    function feedCopy(){
+      const addr=document.getElementById('streamAddr').textContent;
+      const btn=document.getElementById('feedBtn');
+      navigator.clipboard.writeText(addr).then(()=>{
+        btn.textContent='Copied!';btn.classList.add('feed-btn--copied');
+        setTimeout(()=>{btn.textContent='Feed the Grove';btn.classList.remove('feed-btn--copied')},2500);
+      });
+    }
+
+    const DATA_URL='https://nanogrove.github.io/nanogrove-data/stats.json';
+    function setText(id,t){const el=document.getElementById(id);if(el)el.textContent=t}
+    function setStyle(id,p,v){const el=document.getElementById(id);if(el)el.style[p]=v}
+
+    async function fetchStats(){
+      try{
+        const res=await fetch(DATA_URL+'?t='+Date.now());if(!res.ok)return;const d=await res.json();
+        setText('dash-soil',d.garden.soil_moisture+'%');
+        setText('dash-lastwater',d.garden.last_watered_ago);
+        setText('dash-lastwater-vol',d.garden.last_watered_volume+'L delivered');
+        const vo=d.garden.valve_status==='open';
+        setText('dash-valve',vo?'Open':'Closed');setStyle('dash-valve','color',vo?'var(--grove)':'var(--mist)');
+        setText('dash-valve-sub',vo?'Watering · '+d.garden.flow_rate+' L/min':'Idle · 0 L/min');
+        setText('dash-weather',d.weather||'--');
+        setText('dash-tray',d.feeder.tray_level+'%');setText('dash-tray-sub','Last filled '+d.feeder.last_dispensed_ago);
+        setText('dash-dispensed',d.feeder.last_dispensed_grams+'g');
+        const sa=d.feeder.servo_status==='dispensing';
+        setText('dash-servo',sa?'Active':'Idle');setStyle('dash-servo','color',sa?'var(--feather)':'var(--mist)');
+        if(d.growing){setText('grow-plant',d.growing.emoji+' '+d.growing.plant);setText('grow-sown','Sown · '+d.growing.days_since_sown+' days ago');setText('grow-harvest','~'+d.growing.days_to_harvest+' days to harvest');setStyle('grow-progress','width',d.growing.progress_pct+'%')}
+        setText('tray-pct','~'+d.feeder.tray_level+'%');setStyle('tray-progress','width',d.feeder.tray_level+'%');
+        // Treasury
+        setText('dash-donated',d.treasury.total_donated.toFixed(2)+' Ӿ');
+        setText('dash-txcount',d.treasury.tx_count);
+        if(d.treasury.tx_count>0){setText('dash-avgdonation',(d.treasury.total_donated/d.treasury.tx_count).toFixed(3)+' Ӿ')}
+        // Grow progress bar (updated with price below)
+        if(window._nanoPrice){
+          var usdVal=(d.treasury.total_donated*window._nanoPrice);
+          setText('grow-fund-amount','$'+usdVal.toFixed(2)+' / $133');
+          setStyle('grow-fund-fill','width',Math.min((usdVal/133)*100,100)+'%');
+        }
+        if(d.recent_tx&&d.recent_tx.length){
+          document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,5).map(tx=>`
+            <div class="tx-feed__row ${tx.active?'tx-feed__row--active':''}">
+              <span class="pulse-dot" style="${tx.active?'':'background:var(--mist);animation:none;opacity:.3;'}"></span>
+              <span class="tx-feed__addr">${tx.addr}</span>
+              <span class="tx-feed__amount">+${tx.amount} Ӿ</span>
+              <span class="tx-feed__garden">🌱 ${tx.garden_action}</span>
+              <span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>
+              <span class="tx-feed__time">${tx.time_ago}</span>
+            </div>`).join('');
+        }
+      }catch(e){console.log('Stats fetch pending:',e.message)}
+    }
+    // ── Nano price ──
+    window._nanoPrice=null;
+    async function fetchNanoPrice(){
+      try{
+        const res=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=usd');
+        const d=await res.json();
+        window._nanoPrice=d.nano.usd;
+        setText('nano-rate','1 Ӿ = $'+d.nano.usd.toFixed(2));
+      }catch(e){console.log('Price fetch pending:',e.message)}
+    }
+    fetchNanoPrice();setInterval(fetchNanoPrice,300000);
+    fetchStats();setInterval(fetchStats,60000);
+  </script>
+
+</body>
+</html>
