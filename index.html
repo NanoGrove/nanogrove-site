@@ -471,6 +471,7 @@
         const d=await res.json();
         window._nanoPrice=d.nano.usd;
         setText('nano-rate','1 Ӿ = $'+d.nano.usd.toFixed(2));
+        fetchStats();
       }catch(e){console.log('Price fetch pending:',e.message)}
     }
     fetchNanoPrice();setInterval(fetchNanoPrice,300000);
