@@ -456,7 +456,7 @@
               <span class="pulse-dot" style="${tx.active?'':'background:var(--mist);animation:none;opacity:.3;'}"></span>
               <span class="tx-feed__addr">${tx.addr}</span>
               <span class="tx-feed__amount">+${tx.amount} Ӿ</span>
-              <span class="tx-feed__garden">🌱 ${tx.garden_action}</span>
+              <span class="tx-feed__garden">${tx.garden_action&&tx.garden_action.indexOf('Saved')===0?'💧':'🌱'} ${tx.garden_action}</span>
               <span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>
               <span class="tx-feed__time">${tx.time_ago}</span>
             </div>`).join('');
