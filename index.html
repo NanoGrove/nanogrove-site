@@ -455,14 +455,14 @@
             const isTip = tx.garden_action === 'Tip';
             const isSaved = tx.garden_action === 'Saved';
             const gardenEmoji = isTip ? '💝' : (isSaved ? '💧' : '🌱');
-            const amountStyle = isTip ? 'color:var(--mist);' : '';
+            const gardenStyle = isTip ? 'color:var(--mist);' : '';
             const feederHtml = isTip ? '' : `<span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>`;
             return `
             <div class="tx-feed__row ${tx.active?'tx-feed__row--active':''}">
               <span class="pulse-dot" style="${tx.active?'':'background:var(--mist);animation:none;opacity:.3;'}"></span>
               <span class="tx-feed__addr">${tx.addr}</span>
-              <span class="tx-feed__amount" style="${amountStyle}">+${tx.amount} Ӿ</span>
-              <span class="tx-feed__garden">${gardenEmoji} ${tx.garden_action}</span>
+              <span class="tx-feed__amount">+${tx.amount} Ӿ</span>
+              <span class="tx-feed__garden" style="${gardenStyle}">${gardenEmoji}&nbsp;${tx.garden_action}</span>
               ${feederHtml}
               <span class="tx-feed__time">${tx.time_ago}</span>
             </div>`;
