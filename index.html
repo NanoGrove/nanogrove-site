@@ -429,7 +429,7 @@
         const res=await fetch(DATA_URL+'?t='+Date.now());if(!res.ok)return;const d=await res.json();
         setText('dash-soil',d.garden.soil_moisture+'%');
         setText('dash-lastwater',d.garden.last_watered_ago);
-        setText('dash-lastwater-vol',d.garden.last_watered_volume+'L delivered');
+        setText('dash-lastwater-vol',d.garden.last_watered_volume+' L · '+d.garden.total_water_liters+' L total');
         const vo=d.garden.valve_status==='open';
         setText('dash-valve',vo?'Open':'Closed');setStyle('dash-valve','color',vo?'var(--grove)':'var(--mist)');
         setText('dash-valve-sub',vo?'Watering · '+d.garden.flow_rate+' L/min':'Idle · 0 L/min');
