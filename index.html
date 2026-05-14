@@ -451,15 +451,22 @@
           setStyle('grow-fund-fill','width',Math.min((usdVal/200)*100,100)+'%');
         }
         if(d.recent_tx&&d.recent_tx.length){
-          document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,3).map(tx=>`
+          document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,3).map(tx=>{
+            const isTip = tx.garden_action === 'Tip';
+            const isSaved = tx.garden_action === 'Saved';
+            const gardenEmoji = isTip ? '💝' : (isSaved ? '💧' : '🌱');
+            const amountStyle = isTip ? 'color:var(--mist);' : '';
+            const feederHtml = isTip ? '' : `<span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>`;
+            return `
             <div class="tx-feed__row ${tx.active?'tx-feed__row--active':''}">
               <span class="pulse-dot" style="${tx.active?'':'background:var(--mist);animation:none;opacity:.3;'}"></span>
               <span class="tx-feed__addr">${tx.addr}</span>
-              <span class="tx-feed__amount">+${tx.amount} Ӿ</span>
-              <span class="tx-feed__garden">${tx.garden_action&&tx.garden_action.indexOf('Saved')===0?'💧':'🌱'} ${tx.garden_action}</span>
-              <span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>
+              <span class="tx-feed__amount" style="${amountStyle}">+${tx.amount} Ӿ</span>
+              <span class="tx-feed__garden">${gardenEmoji} ${tx.garden_action}</span>
+              ${feederHtml}
               <span class="tx-feed__time">${tx.time_ago}</span>
-            </div>`).join('');
+            </div>`;
+          }).join('');
         }
       }catch(e){console.log('Stats fetch pending:',e.message)}
     }
