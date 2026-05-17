@@ -464,7 +464,7 @@
           document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,4).map(tx=>{
             const isTip = tx.garden_action === 'Tip';
             const isSaved = tx.garden_action === 'Saved';
-            const gardenEmoji = isTip ? '💝' : (isSaved ? '💧' : '🌱');
+            const gardenEmoji = isTip ? '❤️' : (isSaved ? '💧' : '🌱');
             const gardenStyle = isTip ? 'color:var(--mist);' : '';
             const feederHtml = isTip ? '' : `<span class="tx-feed__feeder">🐦 ${tx.feeder_action}</span>`;
             return `
