@@ -154,6 +154,21 @@
     .footer__socials{display:flex;justify-content:center;gap:14px;margin:20px 0 14px}
     .footer__socials a{color:var(--mist);display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(138,145,120,.18);transition:color .2s,border-color .2s,transform .2s}
     .footer__socials a:hover{color:var(--grove);border-color:var(--grove);transform:translateY(-1px)}
+    /* FIELD NOTES */
+    .notes-section{padding:80px 24px;background:var(--night)}
+    .notes-section h2{font-family:var(--font-display);font-size:32px;color:var(--linen);font-weight:900;line-height:1.1;margin:8px 0 32px}
+    .notes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .note-card{background:var(--soil);border-radius:14px;border:1px solid rgba(92,184,50,.1);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .2s,border-color .2s}
+    .note-card:hover{transform:translateY(-3px);border-color:rgba(92,184,50,.25)}
+    .note-card--soon{border-style:dashed;border-color:rgba(92,184,50,.15);opacity:.7}
+    .note-card--soon:hover{transform:none;border-color:rgba(92,184,50,.15)}
+    .note-card__thumb{aspect-ratio:16/10;overflow:hidden;background:var(--night)}
+    .note-card__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .note-card__body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+    .note-card__num{font-family:var(--font-mono);font-size:9px;color:var(--mist);text-transform:uppercase;letter-spacing:2px}
+    .note-card__title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--linen);line-height:1.25;margin:2px 0}
+    .note-card__sub{font-size:13px;color:var(--sand);line-height:1.55;opacity:.85}
+    .note-card__cta{font-family:var(--font-mono);font-size:11px;color:var(--grove);letter-spacing:1px;margin-top:8px}
     /* SCROLL CUE */
     .scroll-cue{display:flex;justify-content:center;padding:0 24px 32px;margin-top:-56px;color:var(--grove);text-decoration:none;position:relative;z-index:2}
     .scroll-cue__chevron{font-size:22px;line-height:1;animation:cueBounce 2s ease-in-out infinite;opacity:.5}
@@ -172,6 +187,7 @@
       .tx-feed__row{grid-template-columns:auto 1fr auto;gap:8px}
       .tx-feed__garden,.tx-feed__feeder,.tx-feed__time{grid-column:2/-1;padding-left:17px}
       .grow-roadmap{grid-template-columns:repeat(3,1fr)!important}
+      .notes-grid{grid-template-columns:1fr}
       .treasury-row{gap:20px!important}
       .treasury-row div>div:last-child{white-space:nowrap}
     }
@@ -412,6 +428,43 @@
     </div>
   </section>
 
+  <!-- FIELD NOTES -->
+  <section class="notes-section">
+    <div class="container">
+      <span class="label">Field Notes</span>
+      <h2>Notes from the grove.</h2>
+      <div class="notes-grid">
+
+        <a href="https://medium.com/@nanogrove/field-note-01-soil-telemetry-d0afa0a3265e" target="_blank" rel="noopener" class="note-card">
+          <div class="note-card__thumb"><img src="assets/fieldnote-01-thumb.jpg" alt="Soil sensor and weatherproof electronics box"></div>
+          <div class="note-card__body">
+            <div class="note-card__num">01 · Published</div>
+            <h3 class="note-card__title">Field Note 01: Soil Telemetry</h3>
+            <p class="note-card__sub">On v1.2 sensor drift, a tarp, and what's next.</p>
+            <span class="note-card__cta">Read on Medium →</span>
+          </div>
+        </a>
+
+        <div class="note-card note-card--soon">
+          <div class="note-card__body">
+            <div class="note-card__num">02 · Coming soon</div>
+            <h3 class="note-card__title">Building the Bed</h3>
+            <p class="note-card__sub">Woodshop blueprint and bill of materials.</p>
+          </div>
+        </div>
+
+        <div class="note-card note-card--soon">
+          <div class="note-card__body">
+            <div class="note-card__num">03 · Coming soon</div>
+            <h3 class="note-card__title">Drip &amp; Drain</h3>
+            <p class="note-card__sub">Irrigation, runoff, and how water moves through the grove.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__lockup">
