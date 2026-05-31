@@ -17,6 +17,11 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' stroke='%235cb832' stroke-width='2' fill='none' opacity='0.3'/><rect x='32' y='48' width='3.5' height='26' rx='1.75' fill='%235cb832'/><circle cx='33' cy='38' r='9' fill='%235cb832'/><circle cx='50' cy='30' r='5' fill='%23209ce5'/></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    .stream-intermission{position:absolute;inset:0;background-size:cover;background-position:center;display:flex;align-items:flex-end;}
+    .stream-intermission__scrim{position:absolute;inset:0;background:linear-gradient(to top, rgba(15,17,13,.92) 0%, rgba(15,17,13,.55) 45%, rgba(15,17,13,.25) 100%);}
+    .stream-intermission__content{position:relative;z-index:2;padding:32px;text-align:left;}
+    .stream-intermission__title{font-family:var(--font-display,'Fraunces',serif);font-size:26px;color:var(--linen);font-weight:700;margin-bottom:8px;}
+    .stream-intermission__body{font-family:var(--font-body,'Plus Jakarta Sans',sans-serif);font-size:15px;color:var(--sand);line-height:1.6;max-width:420px;}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{--night:#0f110d;--soil:#1b1e16;--bark:#2a2d22;--moss:#3a5a2a;--grove:#5cb832;--lime:#a3e635;--nano:#209ce5;--nano-glow:#4fc3f7;--clay:#c8a47a;--sand:#ddd5c0;--linen:#eae6db;--white:#f5f3ee;--mist:#8a9178;--feather:#e8a838;--robin:#d45d3c;--font-display:'Fraunces',serif;--font-mono:'IBM Plex Mono',monospace;--font-body:'Plus Jakarta Sans',sans-serif}
     html{scroll-behavior:smooth}
@@ -279,8 +284,14 @@
       <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(92,184,50,.1);box-shadow:0 12px 48px rgba(0,0,0,.3);">
         <!-- Video player -->
         <div class="stream-player__iframe-wrap">
-          <iframe src="https://www.youtube.com/embed/live_stream?channel=UC43UH0jVvBKStDiesISX7mQ" allow="encrypted-media" allowfullscreen></iframe>
-        </div>
+  <div class="stream-intermission" style="background-image:url('harvest-broccoli.jpg');">
+    <div class="stream-intermission__scrim"></div>
+    <div class="stream-intermission__content">
+      <div class="stream-intermission__title">Peppers next.</div>
+      <div class="stream-intermission__body">The broccoli's been harvested. The livestream returns in August.</div>
+    </div>
+  </div>
+</div>
         <!-- Feed the Grove bar -->
         <div style="background:var(--night);border-top:1px solid rgba(92,184,50,.08);padding:14px 18px;">
           <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
