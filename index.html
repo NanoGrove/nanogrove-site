@@ -513,7 +513,7 @@
         setText('dash-dispensed',d.feeder.last_dispensed_grams+'g');
         const sa=d.feeder.servo_status==='dispensing';
         setText('dash-servo',sa?'Active':'Idle');setStyle('dash-servo','color',sa?'var(--feather)':'var(--mist)');
-        if(d.growing){setText('grow-plant',d.growing.emoji+' '+d.growing.plant);setText('grow-sown','Sown · '+d.growing.days_since_sown+' days ago');setText('grow-harvest','~'+d.growing.days_to_harvest+' days to harvest');setStyle('grow-progress','width',d.growing.progress_pct+'%')}
+        if(d.growing){setText('grow-plant',d.growing.emoji+' '+d.growing.plant);setText('grow-sown','Sown · '+d.growing.days_since_sown+' days ago');if(d.growing.days_to_harvest<=0){setText('grow-harvest','✓ Harvest complete');setStyle('grow-progress','width','100%')}else{setText('grow-harvest','~'+d.growing.days_to_harvest+' days to harvest');setStyle('grow-progress','width',d.growing.progress_pct+'%')}}
         setText('tray-pct','~'+d.feeder.tray_level+'%');setStyle('tray-progress','width',d.feeder.tray_level+'%');
         // Treasury
         setText('dash-donated',d.treasury.total_donated.toFixed(2)+' Ӿ');
