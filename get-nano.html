@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Nano — NanoGrove</title>
+  <meta name="description" content="Get a Nano wallet, buy a little, and feed the grove. Three steps, about ten minutes.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' stroke='%235cb832' stroke-width='2' fill='none' opacity='0.3'/><rect x='32' y='48' width='3.5' height='26' rx='1.75' fill='%235cb832'/><circle cx='33' cy='38' r='9' fill='%235cb832'/><circle cx='50' cy='30' r='5' fill='%23209ce5'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--night:#0f110d;--soil:#1b1e16;--bark:#2a2d22;--moss:#3a5a2a;--grove:#5cb832;--lime:#a3e635;--nano:#209ce5;--nano-glow:#4fc3f7;--clay:#c8a47a;--sand:#ddd5c0;--linen:#eae6db;--white:#f5f3ee;--mist:#8a9178;--feather:#e8a838;--robin:#d45d3c;--font-display:'Fraunces',serif;--font-mono:'IBM Plex Mono',monospace;--font-body:'Plus Jakarta Sans',sans-serif}
+    html{scroll-behavior:smooth}
+    body{background:var(--soil);color:var(--sand);font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(27,30,22,.88);border-bottom:1px solid rgba(58,90,42,.15);padding:12px 28px;display:flex;align-items:center;gap:14px}
+    .nav__wordmark{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--linen)}
+    .nav__wordmark span{color:var(--grove)}
+    .nav__back{margin-left:auto;font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mist);padding:7px 14px;border-radius:6px;transition:all .2s}
+    .nav__back:hover{color:var(--grove);background:rgba(92,184,50,.08)}
+    .container{max-width:640px;margin:0 auto;padding:0 24px}
+    .page-head{padding:64px 0 28px}
+    .label{font-family:var(--font-mono);font-size:10px;color:var(--nano);text-transform:uppercase;letter-spacing:3px}
+    h1{font-family:var(--font-display);font-weight:900;font-size:clamp(32px,6vw,44px);color:var(--linen);line-height:1.08;margin:14px 0 16px}
+    .intro{font-size:14px;line-height:1.75;color:var(--sand)}
+    .step{background:var(--night);border:1px solid rgba(92,184,50,.1);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+    .step--send{border-color:rgba(32,156,229,.35)}
+    .step__label{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--grove);text-transform:uppercase}
+    .step--send .step__label{color:var(--nano-glow)}
+    .step__title{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--linen);margin-top:8px}
+    .step__body{font-size:13px;line-height:1.75;color:var(--sand);margin-top:8px}
+    .callout{background:var(--soil);border-left:2px solid var(--robin);padding:13px 15px;margin-top:13px}
+    .callout__label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--robin);text-transform:uppercase;margin-bottom:6px}
+    .callout__body{font-size:12.5px;line-height:1.7;color:var(--sand)}
+    .step__actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}
+    .btn-out{border:1px solid rgba(92,184,50,.25);color:var(--linen);border-radius:8px;padding:9px 17px;font-weight:600;font-size:13px;transition:all .15s;display:inline-block}
+    .btn-out:hover{border-color:var(--grove);background:rgba(92,184,50,.06)}
+    .btn-live{background:var(--grove);color:var(--night);border-radius:8px;padding:9px 17px;font-weight:700;font-size:13px;transition:all .15s;display:inline-block}
+    .btn-live:hover{transform:translateY(-1px)}
+    .step__tech{font-family:var(--font-mono);font-size:10px;color:var(--mist);margin-top:13px;border-top:1px solid rgba(92,184,50,.08);padding-top:11px}
+    .addr{font-family:var(--font-mono);font-size:10px;color:var(--linen);opacity:.55;word-break:break-all;line-height:1.5;margin-top:10px;cursor:pointer}
+    .fineprint{font-family:var(--font-mono);font-size:10px;color:var(--mist);line-height:1.7;padding:14px 0 60px}
+    .btn-copied{color:var(--nano)!important;opacity:1!important}
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav__wordmark">Nano<span>Grove</span></a>
+    <a href="/" class="nav__back">← Back to the grove</a>
+  </nav>
+
+  <div class="container">
+
+    <header class="page-head">
+      <span class="label">Get Nano</span>
+      <h1>Get Nano. Keep the keys.</h1>
+      <p class="intro">The grove runs on Nano because it's feeless and instant. Both work better with a wallet of your own. Three steps, about ten minutes — most of it the ID check.</p>
+    </header>
+
+    <div class="step">
+      <div class="step__label">Step 01</div>
+      <div class="step__title">Get a wallet.</div>
+      <div class="step__body">Nault runs in a desktop browser. Natrium runs on your phone. Both are open source, and neither keeps anything on a server — the wallet is yours, not an account.</div>
+      <div class="callout">
+        <div class="callout__label">The one thing to know</div>
+        <div class="callout__body">Your wallet starts with a seed — 64 characters that are the money. Write it on paper. Nobody can reset it, not the wallet and not us.</div>
+      </div>
+      <div class="step__actions">
+        <a class="btn-out" href="https://nault.cc" target="_blank" rel="noopener">Open Nault →</a>
+        <a class="btn-out" href="https://natrium.io" target="_blank" rel="noopener">Get Natrium →</a>
+      </div>
+      <div class="step__tech">Nault · Natrium · Open Source · Desktop / iOS / Android</div>
+    </div>
+
+    <div class="step">
+      <div class="step__label">Step 02</div>
+      <div class="step__title">Buy a little.</div>
+      <div class="step__body">Onramps turn dollars into Nano and send it to the address your new wallet shows you. Expect an ID check and a fee of a few percent, baked into the rate. The network is feeless — buying in isn't. Start small.</div>
+      <div class="step__actions">
+        <a class="btn-out" href="https://guardarian.com" target="_blank" rel="noopener">Buy on Guardarian →</a>
+        <a class="btn-out" href="https://changenow.io" target="_blank" rel="noopener">Buy on ChangeNOW →</a>
+      </div>
+      <div class="step__tech">Guardarian · ChangeNOW · ID verification applies</div>
+    </div>
+
+    <div class="step step--send">
+      <div class="step__label">Step 03</div>
+      <div class="step__title">Send 0.1 Ӿ to the grove.</div>
+      <div class="step__body">Paste the grove's address and send 0.1 Ӿ. Zero fees. Confirmed in under a second.</div>
+      <div class="addr" id="groveAddr" onclick="copyAddr()" title="Tap to copy">nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o</div>
+      <div class="step__actions">
+        <a class="btn-live" href="/#livestream">Watch the livestream →</a>
+      </div>
+      <div class="step__tech">Natrium API · &lt;1s confirmation · 0 fees</div>
+    </div>
+
+    <div class="fineprint">NanoGrove has no affiliation with these services and takes no cut.</div>
+
+  </div>
+
+  <script>
+    function copyAddr(){
+      var el=document.getElementById('groveAddr');
+      navigator.clipboard.writeText(el.textContent.trim()).then(function(){
+        el.classList.add('btn-copied');
+        var prev=el.textContent;
+        el.textContent='Copied.';
+        setTimeout(function(){el.textContent=prev;el.classList.remove('btn-copied')},1600);
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -81,6 +81,28 @@
     .feed-btn{font-family:var(--font-body);font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--nano),var(--nano-glow));color:var(--white);border:none;padding:12px 28px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:all .15s;box-shadow:0 2px 16px rgba(32,156,229,.25)}
     .feed-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(32,156,229,.35)}
     .feed-btn--copied{background:var(--bark)!important;color:var(--nano)!important;box-shadow:none!important}
+
+    /* Two-door band (Send Nano / Pay by card) */
+    .band{background:var(--night);border-top:1px solid rgba(92,184,50,.08);display:grid;grid-template-columns:1fr 1fr}
+    .band__door{padding:18px 20px 8px}
+    .band__cell{padding:12px 20px 6px}
+    .band__cell--first{padding-top:16px}
+    .band--nano{border-right:1px solid rgba(92,184,50,.12)}
+    .band__title{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+    .band__title--nano{color:var(--nano)}
+    .band__title--card{color:var(--mist)}
+    .band__rowlabel{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--mist)}
+    .band__val{font-size:12px;line-height:1.6;margin-top:4px;color:var(--sand)}
+    .band__val--nano{color:var(--grove)}
+    .band__val a{border-bottom:1px dashed rgba(92,184,50,.4)}
+    .band__getnano{font-family:var(--font-mono);font-size:10px;color:var(--nano-glow);border-bottom:1px dashed rgba(79,195,247,.4);padding-bottom:1px}
+    .band__tiers{display:flex;gap:8px;align-items:stretch}
+    .pay-link{flex:1;background:#000;color:#fff;text-align:center;border-radius:10px;padding:11px 0;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s}
+    .pay-link:hover{transform:translateY(-1px)}
+    .tier-pill{border:1px solid rgba(200,164,122,.5);color:var(--clay);border-radius:8px;padding:0 14px;font-family:var(--font-mono);font-size:11px;display:flex;align-items:center;transition:all .15s}
+    .tier-pill:hover{border-color:var(--clay);background:rgba(200,164,122,.08)}
+    .band__fineprint{grid-column:1/-1;padding:8px 20px 16px;font-family:var(--font-mono);font-size:9px;color:var(--mist);line-height:1.7}
+    @media(max-width:640px){.band{grid-template-columns:1fr}.band--nano{border-right:none}.band__cell--card{border-bottom:1px solid rgba(92,184,50,.06)}}
     .stream-addr-bar__min{font-family:var(--font-mono);font-size:9px;color:var(--mist);white-space:nowrap}
 
     /* STEPS */
@@ -293,15 +315,77 @@
   </div>
 </div>
         <!-- Feed the Grove bar -->
-        <div style="background:var(--night);border-top:1px solid rgba(92,184,50,.08);padding:14px 18px;">
-          <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
-            <button class="feed-btn" onclick="feedCopy()" id="feedBtn" style="flex-shrink:0;">Feed the Grove</button>
-            <div id="streamAddr" style="font-family:var(--font-mono);font-size:10px;color:var(--linen);opacity:.6;word-break:break-all;line-height:1.4;cursor:pointer;max-width:500px;" onclick="feedCopy()">nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o</div>
+        <div class="band">
+          <!-- Door: Send Nano -->
+          <div class="band__door band--nano">
+            <div class="band__title band__title--nano">Send Nano — moves the grove</div>
+            <button class="feed-btn" onclick="feedCopy()" id="feedBtn" style="width:100%;">Feed the Grove</button>
+            <div id="streamAddr" style="font-family:var(--font-mono);font-size:10px;color:var(--linen);opacity:.6;word-break:break-all;line-height:1.4;cursor:pointer;margin-top:10px;" onclick="feedCopy()">nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o</div>
             <!-- For the OGs: xrb_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o -->
+            <div style="margin-top:10px;"><a class="band__getnano" href="/get-nano.html">New to Nano? Get set up →</a></div>
           </div>
-          <div style="text-align:center;margin-top:10px;">
-            <span style="font-family:var(--font-mono);font-size:9px;color:var(--mist);letter-spacing:1px;">0.1 Ӿ minimum</span>
+          <!-- Door: Pay by card -->
+          <div class="band__door">
+            <div class="band__title band__title--card">Pay by card — supports the grove</div>
+            <div class="band__tiers">
+              <!-- TODO: paste your three Stripe Payment Link URLs into these hrefs -->
+              <a class="pay-link" href="STRIPE_LINK_1USD" target="_blank" rel="noopener">
+                <svg width="13" height="16" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                Pay $1
+              </a>
+              <a class="tier-pill" href="STRIPE_LINK_5USD" target="_blank" rel="noopener">$5</a>
+              <a class="tier-pill" href="STRIPE_LINK_10USD" target="_blank" rel="noopener">$10</a>
+            </div>
+            <div style="font-size:12px;color:var(--sand);line-height:1.6;margin-top:10px;">Your dollars fund the next bed — the Bed 2 bar below updates within minutes.</div>
           </div>
+
+          <!-- Comparison rows -->
+          <div class="band__cell band__cell--first band--nano">
+            <div class="band__rowlabel">THE TRIGGER</div>
+            <div class="band__val band__val--nano">Moves the grove. The feeder turns and the valve answers, live on stream.</div>
+          </div>
+          <div class="band__cell band__cell--first band__cell--card">
+            <div class="band__rowlabel">THE TRIGGER</div>
+            <div class="band__val">Doesn't move it. Card money builds beds; only Nano reaches the valve.</div>
+          </div>
+
+          <div class="band__cell band--nano">
+            <div class="band__rowlabel">FEES</div>
+            <div class="band__val band__val--nano">Zero. 0.1 Ӿ sent is 0.1 Ӿ received.</div>
+          </div>
+          <div class="band__cell band__cell--card">
+            <div class="band__rowlabel">FEES</div>
+            <div class="band__val">The rail tolls every swipe — about 2.9% + 30¢. What lands is what counts.</div>
+          </div>
+
+          <div class="band__cell band--nano">
+            <div class="band__rowlabel">SETTLEMENT</div>
+            <div class="band__val band__val--nano">Final in under a second. No pending, no business hours.</div>
+          </div>
+          <div class="band__cell band__cell--card">
+            <div class="band__rowlabel">SETTLEMENT</div>
+            <div class="band__val">Feels instant. The banks settle it between themselves over 1–3 days.</div>
+          </div>
+
+          <div class="band__cell band--nano">
+            <div class="band__rowlabel">ENERGY</div>
+            <div class="band__val band__val--nano">A transaction costs less energy than a Google search.</div>
+          </div>
+          <div class="band__cell band__cell--card">
+            <div class="band__rowlabel">ENERGY</div>
+            <div class="band__val">—</div>
+          </div>
+
+          <div class="band__cell band--nano" style="padding-bottom:16px;">
+            <div class="band__rowlabel">THE RECORD</div>
+            <div class="band__val band__val--nano"><a href="https://nanolooker.com/account/nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o" target="_blank" rel="noopener">A public block anyone can check →</a></div>
+          </div>
+          <div class="band__cell band__cell--card" style="padding-bottom:16px;">
+            <div class="band__rowlabel">THE RECORD</div>
+            <div class="band__val">Private ledgers. You get a receipt; the bar below gets the net.</div>
+          </div>
+
+          <div class="band__fineprint">Card figures are representative — exact rates vary by card and processor. Nano carries no network fee by protocol design.</div>
         </div>
         <!-- Dashboard attached -->
         <div style="background:var(--night);padding:20px 24px 24px;border-top:1px solid rgba(58,90,42,.1);">
@@ -389,12 +473,17 @@
           <div class="grow-progress__title">🔨 Bed 2</div>
           <div class="grow-progress__amount" id="grow-fund-amount">$0 / $200</div>
         </div>
-        <div class="grow-progress__track">
-          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%"></div>
+        <div class="grow-progress__track" style="display:flex;">
+          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%;background:var(--nano);border-radius:4px 0 0 4px;"></div>
+          <div id="grow-fund-fill-card" style="height:100%;background:var(--clay);width:0%;border-radius:0 4px 4px 0;transition:width .5s;"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <div class="grow-progress__sub">Progress toward the next bed.</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;">
+          <div class="grow-progress__sub" id="grow-fund-legend">Ӿ direct — $-- </div>
           <div class="grow-progress__sub" id="nano-rate">1 Ӿ = --</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;">
+          <div class="grow-progress__sub">Progress toward the next bed.</div>
+          <div class="grow-progress__sub" id="card-net-note" style="display:none;">card support shown net of fees</div>
         </div>
       </div>
 
@@ -491,6 +580,7 @@
         </svg>
       </a>
     </div>
+    <div style="margin-bottom:10px;"><a href="/get-nano.html" style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--mist);border-bottom:1px dashed rgba(138,145,120,.4);padding-bottom:1px;">New to Nano? Get set up →</a></div>
     <div class="footer__meta">Zero fees · Instant · Green</div>
   </footer>
 
@@ -532,9 +622,23 @@
         if(d.treasury.tx_count>0){setText('dash-avgdonation',(d.treasury.total_donated/d.treasury.tx_count).toFixed(2)+' Ӿ')}
         // Grow progress bar (updated with price below)
         if(window._nanoPrice){
-          var usdVal=(d.treasury.total_donated*window._nanoPrice);
-          setText('grow-fund-amount','$'+usdVal.toFixed(2)+' / $200');
-          setStyle('grow-fund-fill','width',Math.min((usdVal/200)*100,100)+'%');
+          var nanoUsd=(d.treasury.total_donated*window._nanoPrice);
+          var cs=d.card_support||{};
+          var cardUsd=(cs.enabled&&typeof cs.usd_net==='number')?Math.max(cs.usd_net,0):0;
+          setText('grow-fund-amount','$'+(nanoUsd+cardUsd).toFixed(2)+' / $200');
+          var nw=Math.min((nanoUsd/200)*100,100);
+          var cw=Math.min((cardUsd/200)*100,Math.max(100-nw,0));
+          setStyle('grow-fund-fill','width',nw+'%');
+          setStyle('grow-fund-fill-card','width',cw+'%');
+          var leg=document.getElementById('grow-fund-legend');
+          if(leg){
+            var sw=function(c){return '<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:'+c+';margin-right:4px;vertical-align:-1px;"></span>'};
+            var legHtml=sw('var(--nano)')+'Ӿ direct — $'+nanoUsd.toFixed(2);
+            if(cs.enabled){legHtml+='&nbsp;&nbsp;'+sw('var(--clay)')+'$ card — $'+cardUsd.toFixed(2)+(cs.stale?' · last known':'')}
+            leg.innerHTML=legHtml;
+          }
+          var netNote=document.getElementById('card-net-note');
+          if(netNote){netNote.style.display=cs.enabled?'block':'none'}
         }
         if(d.recent_tx&&d.recent_tx.length){
           document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,4).map(tx=>{
