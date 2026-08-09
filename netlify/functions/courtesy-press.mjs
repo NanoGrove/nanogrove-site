@@ -96,6 +96,20 @@ async function poolInfo() {
   };
 }
 
+async function getWork(store, frontier) {
+  // Cached-first work fetch. GET warms this cache so POST is fast.
+  const cached = await store.get(`work-${frontier}`, { type: "json" });
+  if (cached && cached.work) return cached.work;
+  const result = await rpc(WORK_URLS, {
+    action: "work_generate",
+    hash: frontier,
+    difficulty: SEND_DIFFICULTY,
+  });
+  if (!result || !result.work) return null;
+  await store.setJSON(`work-${frontier}`, { work: result.work });
+  return result.work;
+}
+
 // --- handler -------------------------------------------------------------
 
 export default async (req, context) => {
@@ -116,9 +130,14 @@ export default async (req, context) => {
     ]);
     const funded = pool && BigInt(pool.balanceRaw) >= BigInt(amountRaw);
     const capped = hourCount >= CAP_HOUR || dayCount >= CAP_DAY;
+    const available = Boolean(funded && !capped);
+    if (available) {
+      // Warm the work cache now so the eventual POST answers fast.
+      await getWork(store, pool.frontier);
+    }
     return json({
-      available: Boolean(funded && !capped),
-      reason: !funded ? "pool_resting" : capped ? "pool_resting" : null,
+      available,
+      reason: available ? null : "pool_resting",
     });
   }
 
@@ -183,13 +202,9 @@ export default async (req, context) => {
     return json({ ok: false, reason: "pool_resting" });
   }
 
-  // ---- Work for the send block ------------------------------------------
-  const workResult = await rpc(WORK_URLS, {
-    action: "work_generate",
-    hash: pool.frontier,
-    difficulty: SEND_DIFFICULTY,
-  });
-  if (!workResult || !workResult.work) {
+  // ---- Work for the send block (cached by GET whenever possible) --------
+  const work = await getWork(store, pool.frontier);
+  if (!work) {
     return json({ ok: false, reason: "work_failed" }, 502);
   }
 
@@ -205,7 +220,7 @@ export default async (req, context) => {
     },
     pool.privateKey
   );
-  signed.work = workResult.work;
+  signed.work = work;
 
   const proc = await rpc(RPC_URLS, {
     action: "process",
@@ -222,6 +237,7 @@ export default async (req, context) => {
     store.setJSON(ipKey, { ts: now.getTime() }),
     store.setJSON(hourKey, { n: hourCount + 1 }),
     store.setJSON(dayKey, { n: dayCount + 1 }),
+    store.delete(`work-${pool.frontier}`), // spent — frontier has moved
   ]);
 
   console.log(`courtesy press ok: ${proc.hash} (ip window recorded)`);
