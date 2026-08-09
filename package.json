@@ -1,0 +1,9 @@
+{
+  "name": "nanogrove-site",
+  "private": true,
+  "description": "nanogrove.org — static site + courtesy press function",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "nanocurrency-web": "^1.4.3"
+  }
+}

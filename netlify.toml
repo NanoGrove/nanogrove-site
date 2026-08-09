@@ -1,0 +1,7 @@
+# NanoGrove Netlify configuration
+# If a netlify.toml already exists in the repo, merge this [functions]
+# block into it instead of replacing the file.
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
