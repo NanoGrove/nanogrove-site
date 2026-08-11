@@ -637,6 +637,7 @@
     var CT_KEY='ng_courtesy_pressed';
     var CT_LABEL='Try the Grove — on us';
     var ctWidget=null;
+    var ctTokenResolve=null;
     function ctBtn(){return document.getElementById('courtesyBtn')}
     function ctHideRow(){var row=document.getElementById('courtesyRow');if(row){row.style.opacity='0';setTimeout(function(){row.style.display='none'},800)}}
     window.onTurnstileLoad=function(){
@@ -645,7 +646,10 @@
       ctWidget=turnstile.render('#turnstileBox',{
         sitekey:'0x4AAAAAAELM3GK2i0trAk95',
         theme:'dark',
-        callback:function(){var b=ctBtn();if(b)b.disabled=false}
+        appearance:'interaction-only',
+        execution:'execute',
+        callback:function(t){if(ctTokenResolve){var r=ctTokenResolve;ctTokenResolve=null;r(t)}},
+        'error-callback':function(){if(ctTokenResolve){var r=ctTokenResolve;ctTokenResolve=null;r('')}}
       });
     };
     function ctToggleSteps(open){
@@ -659,21 +663,34 @@
       try{
         var r=await fetch(CT_EP);var s=await r.json();
         if(!s.available){var b=ctBtn();if(b)b.classList.add('try-btn--off');return}
+        var b2=ctBtn();if(b2)b2.disabled=false;
         if(window.turnstile)window.onTurnstileLoad();
       }catch(e){var b=ctBtn();if(b)b.classList.add('try-btn--off')}
     }
-    async function ctPost(){
-      var token=(window.turnstile&&ctWidget!==null)?turnstile.getResponse(ctWidget):'';
+    function ctGetToken(){
+      return new Promise(function(resolve){
+        if(!window.turnstile||ctWidget===null){resolve('');return}
+        var t=turnstile.getResponse(ctWidget);
+        if(t){resolve(t);return}
+        ctTokenResolve=resolve;
+        try{turnstile.execute(ctWidget)}catch(e){ctTokenResolve=null;resolve('');return}
+        setTimeout(function(){if(ctTokenResolve){var r=ctTokenResolve;ctTokenResolve=null;r('')}},60000);
+      });
+    }
+    async function ctPost(token){
       var r=await fetch(CT_EP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:token})});
       return r.json();
     }
     async function ctPress(){
       var b=ctBtn();if(!b)return;
-      b.disabled=true;b.textContent='sending…';
+      b.disabled=true;b.textContent='verifying…';
+      var token=await ctGetToken();
+      if(!token){b.textContent=CT_LABEL;b.disabled=false;return}
+      b.textContent='sending…';
       var res=null;
-      try{res=await ctPost()}catch(e){
+      try{res=await ctPost(token)}catch(e){
         await new Promise(function(rs){setTimeout(rs,3000)});
-        try{res=await ctPost()}catch(e2){res=null}
+        try{res=await ctPost(token)}catch(e2){res=null}
       }
       if(res&&(res.ok||res.reason==='already_pressed')){
         localStorage.setItem(CT_KEY,'1');
@@ -686,12 +703,13 @@
         }
         return;
       }
+      if(res&&res.reason==='pool_resting'){b.textContent=CT_LABEL;b.classList.add('try-btn--off');return}
       if(res&&res.reason==='not_verified'){
         if(window.turnstile&&ctWidget!==null)turnstile.reset(ctWidget);
-        b.textContent=CT_LABEL;
+        b.textContent=CT_LABEL;b.disabled=false;
         return;
       }
-      b.textContent=CT_LABEL;
+      b.textContent=CT_LABEL;b.disabled=false;
     }
     ctInit();
   </script>
