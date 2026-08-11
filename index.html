@@ -82,27 +82,29 @@
     .feed-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(32,156,229,.35)}
     .feed-btn--copied{background:var(--bark)!important;color:var(--nano)!important;box-shadow:none!important}
 
-    /* Two-door band (Send Nano / Pay by card) */
-    .band{background:var(--night);border-top:1px solid rgba(92,184,50,.08);display:grid;grid-template-columns:1fr 1fr}
-    .band__door{padding:18px 20px 8px}
-    .band__cell{padding:12px 20px 6px}
-    .band__cell--first{padding-top:16px}
-    .band--nano{border-right:1px solid rgba(92,184,50,.12)}
-    .band__title{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-    .band__title--nano{color:var(--nano)}
-    .band__title--card{color:var(--mist)}
-    .band__rowlabel{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--mist)}
-    .band__val{font-size:12px;line-height:1.6;margin-top:4px;color:var(--sand)}
-    .band__val--nano{color:var(--grove)}
-    .band__val a{border-bottom:1px dashed rgba(92,184,50,.4)}
+    /* Feed bar (Send Nano / courtesy press) */
     .band__getnano{font-family:var(--font-mono);font-size:10px;color:var(--nano-glow);border-bottom:1px dashed rgba(79,195,247,.4);padding-bottom:1px}
-    .band__tiers{display:flex;gap:8px;align-items:stretch}
-    .pay-link{flex:1;background:#000;color:#fff;text-align:center;border-radius:10px;padding:11px 0;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s}
-    .pay-link:hover{transform:translateY(-1px)}
-    .tier-pill{border:1px solid rgba(200,164,122,.5);color:var(--clay);border-radius:8px;padding:0 14px;font-family:var(--font-mono);font-size:11px;display:flex;align-items:center;transition:all .15s}
-    .tier-pill:hover{border-color:var(--clay);background:rgba(200,164,122,.08)}
-    .band__fineprint{grid-column:1/-1;padding:8px 20px 16px;font-family:var(--font-mono);font-size:9px;color:var(--mist);line-height:1.7}
-    @media(max-width:640px){.band{grid-template-columns:1fr}.band--nano{border-right:none}.band__cell--card{border-bottom:1px solid rgba(92,184,50,.06)}}
+    .try-btn{font-family:var(--font-body);font-weight:700;font-size:15px;background:linear-gradient(135deg,#454a3c,#636a57);color:var(--white);border:none;padding:12px 28px;border-radius:10px;cursor:pointer;white-space:nowrap;transition:all .15s;box-shadow:0 2px 14px rgba(0,0,0,.25)}
+    .try-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 18px rgba(0,0,0,.35)}
+    .try-btn:disabled{cursor:default;transform:none}
+    .try-btn--off{opacity:.35}
+    .stream-addr-bar .feed-btn,.stream-addr-bar .try-btn{min-width:196px}
+    #courtesyRow{transition:opacity .8s}
+    .courtesy-turnstile{background:var(--night);padding:0 18px}
+    .next-steps{background:var(--night);max-height:0;overflow:hidden;transition:max-height .6s ease}
+    .next-steps--open{max-height:660px}
+    .next-steps__inner{padding:10px 18px 20px;border-top:1px solid rgba(92,184,50,.06)}
+    .next-steps__title{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--linen);margin:8px 0 12px}
+    .next-steps__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .ns-step{background:var(--soil);border:1px solid rgba(92,184,50,.08);border-radius:10px;padding:14px}
+    .ns-step__label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;color:var(--grove);text-transform:uppercase}
+    .ns-step__body{font-size:12px;line-height:1.6;color:var(--sand);margin-top:6px}
+    .ns-step__links{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .ns-link{font-family:var(--font-mono);font-size:10px;color:var(--linen);border:1px solid rgba(92,184,50,.25);border-radius:6px;padding:5px 10px;transition:all .15s;cursor:pointer}
+    .ns-link:hover{border-color:var(--grove)}
+    .next-steps .band__getnano{display:inline-block;margin-top:14px}
+    @media(max-width:640px){.next-steps__grid{grid-template-columns:1fr}.next-steps--open{max-height:1200px}}
+    @media(max-width:640px){.stream-addr-bar .feed-btn,.stream-addr-bar .try-btn{min-width:0;width:100%}}
     .stream-addr-bar__min{font-family:var(--font-mono);font-size:9px;color:var(--mist);white-space:nowrap}
 
     /* STEPS */
@@ -166,6 +168,7 @@
     .grow-bed--active{border-color:rgba(92,184,50,.3);box-shadow:0 0 20px rgba(92,184,50,.06)}
     .grow-bed--next{border-color:rgba(92,184,50,.15);border-style:dashed}
     .grow-bed--future{opacity:.4}
+    .grow-bed--done{opacity:.55}
     .grow-bed__emoji{font-size:28px;margin-bottom:6px}
     .grow-bed__name{font-family:var(--font-body);font-size:11px;color:var(--linen);font-weight:600;margin-bottom:2px}
     .grow-bed__label{font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px}
@@ -282,7 +285,7 @@
           <span class="label" style="margin-bottom:8px;display:block">Step 03</span>
           <h3>Water Flows</h3>
           <p>The Pi checks soil moisture and weather. If the bed needs water, the solenoid valve opens.</p>
-          <span class="step__tech">RPi 4 · ADS1115 · Solenoid Valve · Open-Meteo</span>
+          <span class="step__tech">RPi 4 · S-Soil MT-02A · Solenoid Valve · Open-Meteo</span>
         </div>
         <div class="step" style="border:1px solid rgba(200,164,122,.1)">
           <div class="step__bg-num" style="color:var(--clay)">04</div>
@@ -315,77 +318,39 @@
   </div>
 </div>
         <!-- Feed the Grove bar -->
-        <div class="band">
-          <!-- Door: Send Nano -->
-          <div class="band__door band--nano">
-            <div class="band__title band__title--nano">Send Nano — moves the grove</div>
-            <button class="feed-btn" onclick="feedCopy()" id="feedBtn" style="width:100%;">Feed the Grove</button>
-            <div id="streamAddr" style="font-family:var(--font-mono);font-size:10px;color:var(--linen);opacity:.6;word-break:break-all;line-height:1.4;cursor:pointer;margin-top:10px;" onclick="feedCopy()">nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o</div>
-            <!-- For the OGs: xrb_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o -->
-            <div style="margin-top:10px;"><a class="band__getnano" href="/get-nano.html">New to Nano? Get set up →</a></div>
-          </div>
-          <!-- Door: Pay by card -->
-          <div class="band__door">
-            <div class="band__title band__title--card">Pay by card — supports the grove</div>
-            <div class="band__tiers">
-              <!-- TODO: paste your three Stripe Payment Link URLs into these hrefs -->
-              <a class="pay-link" href="STRIPE_LINK_1USD" target="_blank" rel="noopener">
-                <svg width="13" height="16" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                Pay $1
-              </a>
-              <a class="tier-pill" href="STRIPE_LINK_5USD" target="_blank" rel="noopener">$5</a>
-              <a class="tier-pill" href="STRIPE_LINK_10USD" target="_blank" rel="noopener">$10</a>
+        <div class="stream-addr-bar">
+          <button class="feed-btn" onclick="feedCopy()" id="feedBtn">Feed the Grove</button>
+          <div class="stream-addr-bar__addr" id="streamAddr" onclick="feedCopy()" style="cursor:pointer;">nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o</div>
+        </div>
+        <!-- For the OGs: xrb_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o -->
+        <div class="stream-addr-bar" id="courtesyRow" style="border-top:1px solid rgba(92,184,50,.05);">
+          <button class="try-btn" id="courtesyBtn" disabled onclick="ctPress()">Try the Grove — on us</button>
+          <div class="stream-addr-bar__addr">Sends 0.1 Ӿ from the courtesy pool · once a day</div>
+        </div>
+        <div id="turnstileBox" class="courtesy-turnstile"></div>
+        <div id="nextSteps" class="next-steps">
+          <div class="next-steps__inner">
+            <span class="label label--nano">Your Turn</span>
+            <div class="next-steps__title">Get Nano. Keep the keys.</div>
+            <div class="next-steps__grid">
+              <div class="ns-step">
+                <div class="ns-step__label">Step 01 · Get a wallet</div>
+                <div class="ns-step__body">Nault runs in a browser. Natrium runs on your phone. The wallet is yours, not an account.</div>
+                <div class="ns-step__links"><a class="ns-link" href="https://nault.cc" target="_blank" rel="noopener">Nault →</a><a class="ns-link" href="https://natrium.io" target="_blank" rel="noopener">Natrium →</a></div>
+              </div>
+              <div class="ns-step">
+                <div class="ns-step__label">Step 02 · Buy a little</div>
+                <div class="ns-step__body">Onramps turn dollars into Nano. Expect an ID check and a small fee in the rate. Start small.</div>
+                <div class="ns-step__links"><a class="ns-link" href="https://guardarian.com" target="_blank" rel="noopener">Guardarian →</a><a class="ns-link" href="https://changenow.io" target="_blank" rel="noopener">ChangeNOW →</a></div>
+              </div>
+              <div class="ns-step">
+                <div class="ns-step__label">Step 03 · Send 0.1 Ӿ</div>
+                <div class="ns-step__body">Paste the grove's address and send. Zero fees, confirmed in under a second — watch it land above.</div>
+                <div class="ns-step__links"><span class="ns-link" onclick="feedCopy()">Copy the address</span></div>
+              </div>
             </div>
-            <div style="font-size:12px;color:var(--sand);line-height:1.6;margin-top:10px;">Your dollars fund the next bed — the Bed 2 bar below updates within minutes.</div>
+            <a class="band__getnano" href="/get-nano.html">Read the full guide →</a>
           </div>
-
-          <!-- Comparison rows -->
-          <div class="band__cell band__cell--first band--nano">
-            <div class="band__rowlabel">THE TRIGGER</div>
-            <div class="band__val band__val--nano">Moves the grove. The feeder turns and the valve answers, live on stream.</div>
-          </div>
-          <div class="band__cell band__cell--first band__cell--card">
-            <div class="band__rowlabel">THE TRIGGER</div>
-            <div class="band__val">Doesn't move it. Card money builds beds; only Nano reaches the valve.</div>
-          </div>
-
-          <div class="band__cell band--nano">
-            <div class="band__rowlabel">FEES</div>
-            <div class="band__val band__val--nano">Zero. 0.1 Ӿ sent is 0.1 Ӿ received.</div>
-          </div>
-          <div class="band__cell band__cell--card">
-            <div class="band__rowlabel">FEES</div>
-            <div class="band__val">The rail tolls every swipe — about 2.9% + 30¢. What lands is what counts.</div>
-          </div>
-
-          <div class="band__cell band--nano">
-            <div class="band__rowlabel">SETTLEMENT</div>
-            <div class="band__val band__val--nano">Final in under a second. No pending, no business hours.</div>
-          </div>
-          <div class="band__cell band__cell--card">
-            <div class="band__rowlabel">SETTLEMENT</div>
-            <div class="band__val">Feels instant. The banks settle it between themselves over 1–3 days.</div>
-          </div>
-
-          <div class="band__cell band--nano">
-            <div class="band__rowlabel">ENERGY</div>
-            <div class="band__val band__val--nano">A transaction costs less energy than a Google search.</div>
-          </div>
-          <div class="band__cell band__cell--card">
-            <div class="band__rowlabel">ENERGY</div>
-            <div class="band__val">—</div>
-          </div>
-
-          <div class="band__cell band--nano" style="padding-bottom:16px;">
-            <div class="band__rowlabel">THE RECORD</div>
-            <div class="band__val band__val--nano"><a href="https://nanolooker.com/account/nano_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o" target="_blank" rel="noopener">A public block anyone can check →</a></div>
-          </div>
-          <div class="band__cell band__cell--card" style="padding-bottom:16px;">
-            <div class="band__rowlabel">THE RECORD</div>
-            <div class="band__val">Private ledgers. You get a receipt; the bar below gets the net.</div>
-          </div>
-
-          <div class="band__fineprint">Card figures are representative — exact rates vary by card and processor. Nano carries no network fee by protocol design.</div>
         </div>
         <!-- Dashboard attached -->
         <div style="background:var(--night);padding:20px 24px 24px;border-top:1px solid rgba(58,90,42,.1);">
@@ -394,7 +359,7 @@
             <div>
               <div class="dash-system__header"><div class="dash-system__dot" style="background:var(--grove)"></div><span class="label">Garden Bed</span></div>
               <div class="dash-metrics">
-                <div class="metric metric--garden"><div class="metric__label">Soil Moisture</div><div class="metric__value" style="color:var(--grove)" id="dash-soil">--%</div><div class="metric__sub">Bed #1 · Capacitive</div></div>
+                <div class="metric metric--garden"><div class="metric__label">Soil Moisture</div><div class="metric__value" style="color:var(--grove)" id="dash-soil">--%</div><div class="metric__sub">Bed #1 · MT-02A RS485</div></div>
                 <div class="metric metric--garden"><div class="metric__label">Last Watered</div><div class="metric__value" style="color:var(--grove)" id="dash-lastwater">--</div><div class="metric__sub" id="dash-lastwater-vol">--</div></div>
                 <div class="metric metric--garden"><div class="metric__label">Valve</div><div class="metric__value" id="dash-valve" style="color:var(--mist)">--</div><div class="metric__sub" id="dash-valve-sub">Idle · 0 L/min</div></div>
                 <div class="metric metric--garden"><div class="metric__label">Weather</div><div class="metric__value" style="color:var(--clay)" id="dash-weather">--</div><div class="metric__sub">Open-Meteo</div></div>
@@ -413,11 +378,11 @@
           <div class="grow-bars" style="max-width:none;margin-top:10px;grid-template-columns:2fr 1fr;">
             <div class="grow-bar">
               <div class="grow-bar__header">
-                <span class="grow-bar__name" style="color:var(--grove)" id="grow-plant">🥦 Broccoli</span>
+                <span class="grow-bar__name" style="color:var(--grove)" id="grow-plant">🌶️ Peppers</span>
                 <span class="grow-bar__label">Currently Growing</span>
               </div>
-              <div class="grow-bar__track"><div class="grow-bar__fill grow-bar__fill--green" id="grow-progress" style="width:61%"></div></div>
-              <div class="grow-bar__meta"><span id="grow-sown">Sown · 55 days ago</span><span id="grow-harvest">~35 days to harvest</span></div>
+              <div class="grow-bar__track"><div class="grow-bar__fill grow-bar__fill--green" id="grow-progress" style="width:100%"></div></div>
+              <div class="grow-bar__meta"><span id="grow-sown">Transplanted · 71 days ago</span><span id="grow-harvest">Harvest ongoing</span></div>
             </div>
             <div class="grow-bar">
               <div class="grow-bar__header">
@@ -465,7 +430,7 @@
     <div class="container">
       <span class="label">What Grows Next</span>
       <h2>Grow the grove</h2>
-      <p>One raised bed in Virginia, planted season after season. Donations expand the grove and cover seed, soil, fertilizer, and the bird feeder beside it.</p>
+      <p>Donations support operations and expand the grove — one bed, one vegetable, one season at a time.</p>
 
       <!-- Progress bar -->
       <div class="grow-progress">
@@ -473,36 +438,31 @@
           <div class="grow-progress__title">🔨 Bed 2</div>
           <div class="grow-progress__amount" id="grow-fund-amount">$0 / $200</div>
         </div>
-        <div class="grow-progress__track" style="display:flex;">
-          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%;background:var(--nano);border-radius:4px 0 0 4px;"></div>
-          <div id="grow-fund-fill-card" style="height:100%;background:var(--clay);width:0%;border-radius:0 4px 4px 0;transition:width .5s;"></div>
+        <div class="grow-progress__track">
+          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%;background:var(--nano);border-radius:4px;"></div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;">
-          <div class="grow-progress__sub" id="grow-fund-legend">Ӿ direct — $-- </div>
+          <div class="grow-progress__sub">Progress toward the next bed. Funded in Ӿ.</div>
           <div class="grow-progress__sub" id="nano-rate">1 Ӿ = --</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;">
-          <div class="grow-progress__sub">Progress toward the next bed.</div>
-          <div class="grow-progress__sub" id="card-net-note" style="display:none;">card support shown net of fees</div>
         </div>
       </div>
 
       <!-- Bed roadmap -->
       <div class="grow-roadmap">
-        <div class="grow-bed grow-bed--active">
+        <div class="grow-bed grow-bed--done">
           <div class="grow-bed__emoji">🥦</div>
           <div class="grow-bed__name">Broccoli</div>
+          <div class="grow-bed__label">Spring · Harvested</div>
+        </div>
+        <div class="grow-bed grow-bed--active">
+          <div class="grow-bed__emoji">🌶️</div>
+          <div class="grow-bed__name">Peppers</div>
           <div class="grow-bed__label grow-bed__label--active">Bed 1 · Active</div>
         </div>
         <div class="grow-bed grow-bed--next">
-          <div class="grow-bed__emoji">🌶️</div>
-          <div class="grow-bed__name">Peppers</div>
-          <div class="grow-bed__label grow-bed__label--next">Summer · Next</div>
-        </div>
-        <div class="grow-bed grow-bed--future">
           <div class="grow-bed__emoji">🥬</div>
           <div class="grow-bed__name">Kale</div>
-          <div class="grow-bed__label">Fall 2026</div>
+          <div class="grow-bed__label grow-bed__label--next">Fall · Next</div>
         </div>
         <div class="grow-bed grow-bed--future">
           <div class="grow-bed__emoji">🥕</div>
@@ -573,15 +533,25 @@
       <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke="#5cb832" stroke-width="1.5" opacity=".2"/><circle cx="33" cy="38" r="9" fill="#5cb832"/><rect x="32" y="48" width="3.5" height="26" rx="1.75" fill="#5cb832" opacity=".85"/><ellipse cx="50" cy="74" rx="30" ry="6" fill="#3a5a2a" opacity=".6"/><ellipse cx="70" cy="43" rx="6" ry="4.5" fill="#e8a838" opacity=".85"/><circle cx="75" cy="40" r="3.5" fill="#e8a838"/><circle cx="50" cy="30" r="5" fill="#209ce5"/></svg>
       <div class="footer__wordmark">Nano<span>Grove</span></div>
     </div>
+    <div class="footer__meta">Zero fees · Instant · Green</div>
     <div class="footer__socials">
       <a href="https://x.com/NanoGroveOrg" target="_blank" rel="noopener" aria-label="NanoGrove on X">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
         </svg>
       </a>
+      <a href="REDDIT_URL" target="_blank" rel="noopener" aria-label="NanoGrove on Reddit">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z"/>
+        </svg>
+      </a>
+      <a href="INSTAGRAM_URL" target="_blank" rel="noopener" aria-label="NanoGrove on Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+        </svg>
+      </a>
     </div>
-    <div style="margin-bottom:10px;"><a href="/get-nano.html" style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--mist);border-bottom:1px dashed rgba(138,145,120,.4);padding-bottom:1px;">New to Nano? Get set up →</a></div>
-    <div class="footer__meta">Zero fees · Instant · Green</div>
+    <div style="margin-top:4px;"><a href="/get-nano.html" style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--mist);border-bottom:1px dashed rgba(138,145,120,.4);padding-bottom:1px;">New to Nano? Get set up →</a></div>
   </footer>
 
   <script>
@@ -614,31 +584,19 @@
         setText('dash-dispensed',d.feeder.last_dispensed_grams+'g');
         const sa=d.feeder.servo_status==='dispensing';
         setText('dash-servo',sa?'Active':'Idle');setStyle('dash-servo','color',sa?'var(--feather)':'var(--mist)');
-        if(d.growing){setText('grow-plant',d.growing.emoji+' '+d.growing.plant);setText('grow-sown','Sown · '+d.growing.days_since_sown+' days ago');if(d.growing.days_to_harvest<=0){setText('grow-harvest','✓ Harvest complete');setStyle('grow-progress','width','100%')}else{setText('grow-harvest','~'+d.growing.days_to_harvest+' days to harvest');setStyle('grow-progress','width',d.growing.progress_pct+'%')}}
+        if(d.growing){setText('grow-plant',d.growing.emoji+' '+d.growing.plant);setText('grow-sown','Transplanted · '+d.growing.days_since_sown+' days ago');if(d.growing.days_to_harvest<=0){setText('grow-harvest','Harvest ongoing');setStyle('grow-progress','width','100%')}else{setText('grow-harvest','~'+d.growing.days_to_harvest+' days to harvest');setStyle('grow-progress','width',d.growing.progress_pct+'%')}}
         setText('tray-pct','~'+d.feeder.tray_level+'%');setStyle('tray-progress','width',d.feeder.tray_level+'%');
         // Treasury
-        setText('dash-donated',d.treasury.total_donated.toFixed(2)+' Ӿ');
-        setText('dash-txcount',d.treasury.tx_count);
-        if(d.treasury.tx_count>0){setText('dash-avgdonation',(d.treasury.total_donated/d.treasury.tx_count).toFixed(2)+' Ӿ')}
+        var communityNano=Math.max(d.treasury.total_donated-(d.treasury.courtesy_total||0),0);
+        var communityTx=Math.max(d.treasury.tx_count-(d.treasury.courtesy_count||0),0);
+        setText('dash-donated',communityNano.toFixed(2)+' Ӿ');
+        setText('dash-txcount',communityTx);
+        if(communityTx>0){setText('dash-avgdonation',(communityNano/communityTx).toFixed(2)+' Ӿ')}
         // Grow progress bar (updated with price below)
         if(window._nanoPrice){
-          var nanoUsd=(d.treasury.total_donated*window._nanoPrice);
-          var cs=d.card_support||{};
-          var cardUsd=(cs.enabled&&typeof cs.usd_net==='number')?Math.max(cs.usd_net,0):0;
-          setText('grow-fund-amount','$'+(nanoUsd+cardUsd).toFixed(2)+' / $200');
-          var nw=Math.min((nanoUsd/200)*100,100);
-          var cw=Math.min((cardUsd/200)*100,Math.max(100-nw,0));
-          setStyle('grow-fund-fill','width',nw+'%');
-          setStyle('grow-fund-fill-card','width',cw+'%');
-          var leg=document.getElementById('grow-fund-legend');
-          if(leg){
-            var sw=function(c){return '<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:'+c+';margin-right:4px;vertical-align:-1px;"></span>'};
-            var legHtml=sw('var(--nano)')+'Ӿ direct — $'+nanoUsd.toFixed(2);
-            if(cs.enabled){legHtml+='&nbsp;&nbsp;'+sw('var(--clay)')+'$ card — $'+cardUsd.toFixed(2)+(cs.stale?' · last known':'')}
-            leg.innerHTML=legHtml;
-          }
-          var netNote=document.getElementById('card-net-note');
-          if(netNote){netNote.style.display=cs.enabled?'block':'none'}
+          var nanoUsd=(communityNano*window._nanoPrice);
+          setText('grow-fund-amount','$'+nanoUsd.toFixed(2)+' / $200');
+          setStyle('grow-fund-fill','width',Math.min((nanoUsd/200)*100,100)+'%');
         }
         if(d.recent_tx&&d.recent_tx.length){
           document.getElementById('txFeedContainer').innerHTML=d.recent_tx.slice(0,4).map(tx=>{
@@ -673,7 +631,71 @@
     }
     fetchNanoPrice();setInterval(fetchNanoPrice,300000);
     fetchStats();setInterval(fetchStats,60000);
+
+    // ── Courtesy press (one per visitor, sent from the pool wallet) ──
+    var CT_EP='/.netlify/functions/courtesy-press';
+    var CT_KEY='ng_courtesy_pressed';
+    var CT_LABEL='Try the Grove — on us';
+    var ctWidget=null;
+    function ctBtn(){return document.getElementById('courtesyBtn')}
+    function ctHideRow(){var row=document.getElementById('courtesyRow');if(row){row.style.opacity='0';setTimeout(function(){row.style.display='none'},800)}}
+    window.onTurnstileLoad=function(){
+      if(localStorage.getItem(CT_KEY))return;
+      if(!window.turnstile||ctWidget!==null)return;
+      ctWidget=turnstile.render('#turnstileBox',{
+        sitekey:'TURNSTILE_SITE_KEY',
+        theme:'dark',
+        callback:function(){var b=ctBtn();if(b)b.disabled=false}
+      });
+    };
+    function ctToggleSteps(open){
+      var p=document.getElementById('nextSteps');if(!p)return false;
+      var want=(open===undefined)?!p.classList.contains('next-steps--open'):open;
+      p.classList.toggle('next-steps--open',want);
+      return false;
+    }
+    async function ctInit(){
+      if(localStorage.getItem(CT_KEY)){ctHideRow();return}
+      try{
+        var r=await fetch(CT_EP);var s=await r.json();
+        if(!s.available){var b=ctBtn();if(b)b.classList.add('try-btn--off');return}
+        if(window.turnstile)window.onTurnstileLoad();
+      }catch(e){var b=ctBtn();if(b)b.classList.add('try-btn--off')}
+    }
+    async function ctPost(){
+      var token=(window.turnstile&&ctWidget!==null)?turnstile.getResponse(ctWidget):'';
+      var r=await fetch(CT_EP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:token})});
+      return r.json();
+    }
+    async function ctPress(){
+      var b=ctBtn();if(!b)return;
+      b.disabled=true;b.textContent='sending…';
+      var res=null;
+      try{res=await ctPost()}catch(e){
+        await new Promise(function(rs){setTimeout(rs,3000)});
+        try{res=await ctPost()}catch(e2){res=null}
+      }
+      if(res&&(res.ok||res.reason==='already_pressed')){
+        localStorage.setItem(CT_KEY,'1');
+        if(res.ok){
+          b.textContent='0.1 Ӿ sent — watch the stream';
+          b.style.opacity='1';b.style.color='var(--grove)';b.style.borderColor='rgba(92,184,50,.5)';
+          setTimeout(function(){ctHideRow();ctToggleSteps(true)},6000);
+        }else{
+          ctHideRow();
+        }
+        return;
+      }
+      if(res&&res.reason==='not_verified'){
+        if(window.turnstile&&ctWidget!==null)turnstile.reset(ctWidget);
+        b.textContent=CT_LABEL;
+        return;
+      }
+      b.textContent=CT_LABEL;
+    }
+    ctInit();
   </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
 
 </body>
 </html>
