@@ -601,13 +601,23 @@
     // ── Courtesy press (one per visitor, sent from the pool wallet) ──
     var CT_EP='/.netlify/functions/courtesy-press';
     var CT_KEY='ng_courtesy_pressed';
+    var CT_TTL=86400000; // 24h
+    function ctPressedRecently(){
+      var v=localStorage.getItem(CT_KEY);
+      if(!v)return false;
+      var ts=parseInt(v,10);
+      if(isNaN(ts)){localStorage.removeItem(CT_KEY);return false} // clears old '1' values
+      if(Date.now()-ts<CT_TTL)return true;
+      localStorage.removeItem(CT_KEY);
+      return false;
+    }
     var CT_LABEL='Try the Grove — on us';
     var ctWidget=null;
     var ctTokenResolve=null;
     function ctBtn(){return document.getElementById('courtesyBtn')}
     function ctHideRow(){var row=document.getElementById('courtesyRow');if(row){row.style.opacity='0';setTimeout(function(){row.style.display='none'},800)}}
     window.onTurnstileLoad=function(){
-      if(localStorage.getItem(CT_KEY))return;
+      if(ctPressedRecently())return;
       if(!window.turnstile||ctWidget!==null)return;
       ctWidget=turnstile.render('#turnstileBox',{
         sitekey:'0x4AAAAAAELM3GK2i0trAk95',
@@ -619,7 +629,7 @@
       });
     };
     async function ctInit(){
-      if(localStorage.getItem(CT_KEY)){ctHideRow();return}
+      if(ctPressedRecently()){ctHideRow();return}
       try{
         var r=await fetch(CT_EP);var s=await r.json();
         if(!s.available){var b=ctBtn();if(b)b.classList.add('try-btn--off');return}
@@ -653,7 +663,7 @@
         try{res=await ctPost(token)}catch(e2){res=null}
       }
       if(res&&(res.ok||res.reason==='already_pressed')){
-        localStorage.setItem(CT_KEY,'1');
+        localStorage.setItem(CT_KEY,String(Date.now()));
         if(res.ok){
           b.textContent='0.1 Ӿ sent — watch the stream';
           b.style.opacity='1';b.style.color='var(--grove)';b.style.borderColor='rgba(92,184,50,.5)';
