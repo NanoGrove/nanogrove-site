@@ -299,12 +299,13 @@
       </div>
       <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(92,184,50,.1);box-shadow:0 12px 48px rgba(0,0,0,.3);">
         <!-- Video player -->
-                <div class="stream-player__iframe-wrap">
+         <div class="stream-player__iframe-wrap">
           <iframe
-            src="https://www.youtube.com/embed/Iq_p-jOVfr4?autoplay=1&amp;mute=1"
+            id="ngPlayer"
+            src="https://www.youtube.com/embed/Iq_p-jOVfr4?enablejsapi=1"
             title="NanoGrove live"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
+            allowfullscreen></iframe>
         </div>
         <!-- Feed the Grove bar -->
         <div class="stream-addr-bar">
@@ -651,8 +652,17 @@
       var r=await fetch(CT_EP,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:token})});
       return r.json();
     }
+     function ngPlayStream(){
+      var f=document.getElementById('ngPlayer');
+      if(!f||!f.contentWindow)return;
+      try{
+        f.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}),'https://www.youtube.com');
+        f.contentWindow.postMessage(JSON.stringify({event:'command',func:'unMute',args:[]}),'https://www.youtube.com');
+      }catch(e){}
+    }
     async function ctPress(){
       var b=ctBtn();if(!b)return;
+      ngPlayStream();
       b.disabled=true;b.textContent='verifying…';
       var token=await ctGetToken();
       if(!token){b.textContent=CT_LABEL;b.disabled=false;return}
