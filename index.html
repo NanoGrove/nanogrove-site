@@ -314,7 +314,7 @@
         </div>
         <!-- For the OGs: xrb_3j7fu15do15jyq7qokwje5je175e6aiuaxiaza1duayzbgjk4zhneehqdp7o -->
         <div class="stream-addr-bar" id="courtesyRow" style="border-top:1px solid rgba(92,184,50,.05);">
-          <button class="try-btn" id="courtesyBtn" disabled onclick="ctPress()">Try it on us</button>
+          <button class="try-btn" id="courtesyBtn" onclick="ctPress()">Try it on us</button>
           <div class="stream-addr-bar__addr">No Nano? Send 0.1 Ӿ from the courtesy pool · once a day</div>
         </div>
         <div id="turnstileBox" class="courtesy-turnstile"></div>
@@ -631,12 +631,15 @@
     };
     async function ctInit(){
       if(ctPressedRecently()){ctHideRow();return}
+      if(window.turnstile)window.onTurnstileLoad();
       try{
-        var r=await fetch(CT_EP);var s=await r.json();
-        if(!s.available){var b=ctBtn();if(b)b.classList.add('try-btn--off');return}
-        var b2=ctBtn();if(b2)b2.disabled=false;
-        if(window.turnstile)window.onTurnstileLoad();
-      }catch(e){var b=ctBtn();if(b)b.classList.add('try-btn--off')}
+        var c=new AbortController();
+        var to=setTimeout(function(){c.abort()},4000);
+        var r=await fetch(CT_EP,{signal:c.signal});
+        clearTimeout(to);
+        var s=await r.json();
+        if(!s.available){var b=ctBtn();if(b){b.disabled=true;b.classList.add('try-btn--off')}}
+      }catch(e){/* slow or failed check: leave button live, server is authoritative */}
     }
     function ctGetToken(){
       return new Promise(function(resolve){
