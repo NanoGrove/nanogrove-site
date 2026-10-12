@@ -358,7 +358,7 @@
                 <span class="grow-bar__label">Currently Growing</span>
               </div>
               <div class="grow-bar__track"><div class="grow-bar__fill grow-bar__fill--green" id="grow-progress" style="width:9%"></div></div>
-              <div class="grow-bar__meta"><span id="grow-sown">Transplanted · 4 days ago</span><span id="grow-harvest"></span></div>
+              <div class="grow-bar__meta"><span id="grow-sown">Transplanted · 4 days ago</span><span id="grow-harvest">~43 days to harvest</span></div>
             </div>
             <div class="grow-bar">
               <div class="grow-bar__header">
@@ -560,8 +560,7 @@
         setText('dash-dispensed',d.feeder.last_dispensed_grams+'g');
         const sa=d.feeder.servo_status==='dispensing';
         setText('dash-servo',sa?'Active':'Idle');setStyle('dash-servo','color',sa?'var(--feather)':'var(--mist)');
-        {const T=new Date('2026-10-08T00:00:00'),H=new Date('2026-11-24T00:00:00'),D=864e5,n=Math.max(0,Math.floor((Date.now()-T)/D)),tot=Math.round((H-T)/D);setText('grow-plant','🥬 Kale');setText('grow-sown','Transplanted · '+n+(n===1?' day':' days')+' ago');setText('grow-harvest','');setStyle('grow-progress','width',Math.min(100,Math.round(n/tot*100))+'%')}
-        setText('tray-pct','~'+d.feeder.tray_level+'%');setStyle('tray-progress','width',d.feeder.tray_level+'%');
+        {const T=new Date('2026-10-08T00:00:00'),H=new Date('2026-11-24T00:00:00'),D=864e5,n=Math.max(0,Math.floor((Date.now()-T)/D)),tot=Math.round((H-T)/D),left=tot-n;setText('grow-plant','🥬 Kale');setText('grow-sown','Transplanted · '+n+(n===1?' day':' days')+' ago');setText('grow-harvest',left>0?'~'+left+(left===1?' day':' days')+' to harvest':'Harvest ongoing');setStyle('grow-progress','width',Math.min(100,Math.round(n/tot*100))+'%')}
         // Treasury
         var communityNano=Math.max(d.treasury.total_donated-(d.treasury.courtesy_total||0),0);
         var communityTx=Math.max(d.treasury.tx_count-(d.treasury.courtesy_count||0),0);
