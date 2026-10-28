@@ -150,18 +150,21 @@
     .grow-progress__title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--grove)}
     .grow-progress__amount{font-family:var(--font-mono);font-size:14px;color:var(--linen)}
     .grow-progress__track{height:8px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:8px}
-    .grow-progress__fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--grove),var(--lime));transition:width .5s}
+    .grow-progress__fill{height:100%;border-radius:4px;background:var(--nano);transition:width .5s}
     .grow-progress__sub{font-family:var(--font-mono);font-size:10px;color:var(--mist)}
     .grow-roadmap{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:32px}
-    .grow-bed{background:var(--soil);border-radius:12px;padding:16px 12px;text-align:center;border:1px solid rgba(92,184,50,.06);transition:transform .2s}
+    .grow-bed{background:var(--soil);border-radius:14px;padding:20px 12px 18px;text-align:center;border:1px solid rgba(92,184,50,.06);transition:transform .2s}
     .grow-bed:hover{transform:translateY(-2px)}
     .grow-bed--active{border-color:rgba(92,184,50,.3);box-shadow:0 0 20px rgba(92,184,50,.06)}
     .grow-bed--next{border-color:rgba(92,184,50,.15);border-style:dashed}
     .grow-bed--future{opacity:.4}
-    .grow-bed--done{opacity:.55}
-    .grow-bed__emoji{font-size:28px;margin-bottom:6px}
-    .grow-bed__name{font-family:var(--font-body);font-size:11px;color:var(--linen);font-weight:600;margin-bottom:2px}
-    .grow-bed__label{font-family:var(--font-mono);font-size:8px;color:var(--mist);text-transform:uppercase;letter-spacing:1.5px}
+    .grow-bed--done{opacity:.7}
+    .grow-bed--done .grow-bed__emoji{filter:saturate(.55)}
+    .grow-bed__emoji{font-size:32px;margin-bottom:8px}
+    .grow-bed__name{font-family:var(--font-body);font-size:14px;color:var(--linen);font-weight:600;margin-bottom:4px}
+    .grow-bed__label{font-family:var(--font-mono);font-size:9px;color:var(--mist);text-transform:uppercase;letter-spacing:1.2px;line-height:1.5}
+    .grow-bed__track{width:60%;height:3px;margin:10px auto 0;border-radius:2px;background:rgba(255,255,255,.06);overflow:hidden}
+    .grow-bed__fill{height:100%;border-radius:2px;background:var(--grove);transition:width .5s}
     .grow-bed__label--active{color:var(--grove)}
     .grow-bed__label--next{color:var(--lime)}
 
@@ -212,6 +215,7 @@
       .treasury-row div>div:last-child{white-space:nowrap}
     }
     @media(max-width:480px){
+      .grow-bed{padding:16px 6px 14px}.grow-bed__label{font-size:8px;letter-spacing:.6px}
       .hero{padding:80px 16px 60px}
     }
   </style>
@@ -415,7 +419,7 @@
           <div class="grow-progress__amount" id="grow-fund-amount">$0 / $200</div>
         </div>
         <div class="grow-progress__track">
-          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%;background:var(--nano);border-radius:4px;"></div>
+          <div class="grow-progress__fill" id="grow-fund-fill" style="width:0%"></div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px;">
           <div class="grow-progress__sub">Progress toward the next bed. Funded in Ӿ.</div>
@@ -428,22 +432,23 @@
         <div class="grow-bed grow-bed--done">
           <div class="grow-bed__emoji">🥦</div>
           <div class="grow-bed__name">Broccoli</div>
-          <div class="grow-bed__label">Spring · 18 lbs Harvested</div>
+          <div class="grow-bed__label">Spring · Donated</div>
         </div>
-        <div class="grow-bed grow-bed--active">
+        <div class="grow-bed grow-bed--done">
           <div class="grow-bed__emoji">🌶️</div>
           <div class="grow-bed__name">Peppers</div>
-          <div class="grow-bed__label grow-bed__label--active">Bed 1 · Active</div>
+          <div class="grow-bed__label">Summer · Donated</div>
         </div>
-        <div class="grow-bed grow-bed--next">
+        <div class="grow-bed grow-bed--active">
           <div class="grow-bed__emoji">🥬</div>
           <div class="grow-bed__name">Kale</div>
-          <div class="grow-bed__label grow-bed__label--next">Fall · Next</div>
+          <div class="grow-bed__label grow-bed__label--active">Bed 1 · Growing</div>
+          <div class="grow-bed__track"><div class="grow-bed__fill" id="grow-bed-fill" style="width:0%"></div></div>
         </div>
-        <div class="grow-bed grow-bed--future">
+        <div class="grow-bed grow-bed--next">
           <div class="grow-bed__emoji">🥕</div>
           <div class="grow-bed__name">Carrots</div>
-          <div class="grow-bed__label">Spring 2027</div>
+          <div class="grow-bed__label grow-bed__label--next">Spring · Next</div>
         </div>
         <div class="grow-bed grow-bed--future">
           <div class="grow-bed__emoji">🍅</div>
@@ -546,6 +551,8 @@
     function setText(id,t){const el=document.getElementById(id);if(el)el.textContent=t}
     function setStyle(id,p,v){const el=document.getElementById(id);if(el)el.style[p]=v}
 
+    // Currently Growing: crop dates set here, independent of stats.json
+    {const T=new Date('2026-10-08T00:00:00'),H=new Date('2026-11-24T00:00:00'),D=864e5,n=Math.max(0,Math.floor((Date.now()-T)/D)),tot=Math.round((H-T)/D),left=tot-n;setText('grow-plant','🥬 Kale');setText('grow-sown','Transplanted · '+n+(n===1?' day':' days')+' ago');setText('grow-harvest',left>0?'~'+left+(left===1?' day':' days')+' to harvest':'Harvest ongoing');setStyle('grow-progress','width',Math.min(100,Math.round(n/tot*100))+'%');setStyle('grow-bed-fill','width',Math.min(100,Math.round(n/tot*100))+'%')}
     async function fetchStats(){
       try{
         const res=await fetch(DATA_URL+'?t='+Date.now());if(!res.ok)return;const d=await res.json();
@@ -560,7 +567,6 @@
         setText('dash-dispensed',d.feeder.last_dispensed_grams+'g');
         const sa=d.feeder.servo_status==='dispensing';
         setText('dash-servo',sa?'Active':'Idle');setStyle('dash-servo','color',sa?'var(--feather)':'var(--mist)');
-        {const T=new Date('2026-10-08T00:00:00'),H=new Date('2026-11-24T00:00:00'),D=864e5,n=Math.max(0,Math.floor((Date.now()-T)/D)),tot=Math.round((H-T)/D),left=tot-n;setText('grow-plant','🥬 Kale');setText('grow-sown','Transplanted · '+n+(n===1?' day':' days')+' ago');setText('grow-harvest',left>0?'~'+left+(left===1?' day':' days')+' to harvest':'Harvest ongoing');setStyle('grow-progress','width',Math.min(100,Math.round(n/tot*100))+'%')}
         // Treasury
         var communityNano=Math.max(d.treasury.total_donated-(d.treasury.courtesy_total||0),0);
         var communityTx=Math.max(d.treasury.tx_count-(d.treasury.courtesy_count||0),0);
